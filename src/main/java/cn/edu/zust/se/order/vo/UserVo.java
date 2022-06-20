@@ -13,6 +13,31 @@ public class UserVo {
     String email;
     int type;
 
+    @Override
+    public String toString() {
+        return "UserVo{" +
+                "id=" + id +
+                ", loginName='" + loginName + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", type=" + type +
+                '}';
+    }
+
+    public UserVo(){
+
+}
+public UserVo(int id,String loginName,String name,String password,String mobile,String email,int type){
+    this.id=id;
+    this.loginName=loginName;
+    this.name=name;
+    this.password=password;
+    this.mobile=mobile;
+    this.email=email;
+    this.type=type;
+}
     public int getId() {
         return id;
     }

@@ -7,6 +7,8 @@ import cn.edu.zust.se.order.vo.UserVo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static java.lang.System.out;
+
 /**
  * 
  * @author czg
@@ -28,7 +30,22 @@ public class UserServiceImpl implements UserService {
         }catch (SQLException e){
             return null;
         }
-
+    }
+    public UserVo register(int id,String login_name,String name,String password,String mobile,String email,int type){
+        String sql="select * from t_user where login_name='"+login_name+"' and password='"+password+"'";
+        ResultSet rs=DBUtil.select(sql);
+        try{
+            if (rs.next()){
+               out.println("已有该用户，请前往登录");
+               return null;
+            }else {
+                DBUtil.update("insert into t_user values("+id+",'"+login_name+"','"+password+"','"+name+"','"+mobile+"','"+email+"',"+type+")");
+                UserVo user=new UserVo(id,login_name,name,password,mobile,email,type);
+                return user;
+            }
+        } catch (SQLException e) {
+            return null;
+        }
     }
     private UserVo rs2vo(ResultSet rs) throws SQLException {
         UserVo user=new UserVo();

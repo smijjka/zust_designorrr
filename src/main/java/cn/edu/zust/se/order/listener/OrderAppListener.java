@@ -17,7 +17,7 @@ import javax.servlet.annotation.WebListener;
 public class OrderAppListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        DBUtil.openConnection("jdbc:mysql://localhost:3306/order?characterEncoding=utf-8","root","123456");
+        DBUtil.openConnection("jdbc:mysql://localhost:3306/prc?characterEncoding=utf-8","root","111111");
         UserService userService=new UserServiceImpl();
         sce.getServletContext().setAttribute("userService",userService);
     }

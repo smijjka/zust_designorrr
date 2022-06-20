@@ -10,4 +10,5 @@ import java.sql.SQLException;
  */
 public interface UserService {
     UserVo login(String userName, String password);
+    UserVo register(int id,String login_name,String name,String password,String mobile,String email,int type);
 }

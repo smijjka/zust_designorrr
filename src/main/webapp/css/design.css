@@ -1,0 +1,20 @@
+body{
+    font-family: 宋体;
+    font-size: 20px;
+    background-size:cover ;
+    background-image: url("/img/图片1.jpeg");
+}
+h1{
+    color:cyan;
+}
+h2{
+    color: cyan;
+}
+#box{
+    padding: 20px;
+    border: cyan solid 2px;
+    margin: 20px;
+    width: 300px;
+
+}
+

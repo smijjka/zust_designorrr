@@ -6,7 +6,7 @@ public class DBUtil {
     private static Connection con=null;
     static {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -51,6 +51,7 @@ public class DBUtil {
             return null;
         try {
             Statement st=con.createStatement();
+            //int ok=st.executeUpdate(sql);
             return st.executeUpdate(sql);
         } catch (SQLException e) {
             return null;
