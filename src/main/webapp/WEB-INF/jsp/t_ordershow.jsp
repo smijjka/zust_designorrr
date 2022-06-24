@@ -27,7 +27,7 @@
     <th width="100">order_time</th>
     <th width="100">submit_time</th>
     <th width="100">amount</th>
-    <th width="100">statue</th>
+    <th width="100">status</th>
   </tr>
   <%
     List<T_order> goods= (List<T_order>) request.getSession().getAttribute("t_order");
@@ -74,7 +74,7 @@
     <td colspan="2"><a href="/buyer/money">购买</a> </td>
   </tr>
 </table>
-
+<a href="/buyer/back2">返回</a>
 
 </form>
 </body>

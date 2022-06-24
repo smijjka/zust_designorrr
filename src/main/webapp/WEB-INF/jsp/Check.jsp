@@ -64,6 +64,6 @@
 <div>
     欢迎您的下一次购买
 </div>
-
+<a href="/buyer/back3">返回</a>
 </body>
 </html>

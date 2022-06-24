@@ -25,7 +25,7 @@
 <center><h2><b>注册</b></h2></center>
 <center><div id="box">
 <center><form  action="/users/register" method="post">
-    <b>id</b>:<input type="text" name="id"><br>
+    <b>id</b>:<input type="text" name="id" onblur="a(this)"><br>
     <b>login_name</b>:<input type="text" name="login_name"><br>
     <b>password</b>:<input type="text" name="password"><br>
     <b>name</b>:<input type="text" name="name"><br>

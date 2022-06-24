@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>购物车页面</title>
+    <script type="text/javascript" src="/js/design.js"></script>
 </head>
 <body>
 <center><table border="1">
@@ -26,7 +27,7 @@
         <th width="100">order_time</th>
         <th width="100">submit_time</th>
         <th width="100">amount</th>
-        <th width="100">statue</th>
+        <th width="100">status</th>
     </tr>
     <%
         List<T_order> goods= (List<T_order>) request.getSession().getAttribute("t_order");

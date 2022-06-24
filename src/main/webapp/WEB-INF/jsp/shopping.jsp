@@ -29,10 +29,22 @@
         <th width="100">down_time</th>
         <th width="100">create_time</th>
         <th width="100">status</th>
+        <th width="100">操作</th>
     </tr>
     <%
         List<Goods> goods= (List<Goods>) request.getSession().getAttribute("goods");
+
         for (int i=0;i<goods.size();i++){
+            int id=goods.get(i).getId();
+            String name=goods.get(i).getName();
+            String category=goods.get(i).getCategory();
+             goods.get(i).getSell_id();
+            goods.get(i).getPrice();
+            goods.get(i).getNum();
+            goods.get(i).getUp_time();
+            goods.get(i).getDown_time();
+            goods.get(i).getCreate_time();
+            goods.get(i).getStatus();
             out.println("<tr>");
             out.println("<td align=center>"+goods.get(i).getId()+"</td>");
             out.println("<td align=center>"+goods.get(i).getName()+"</td>");
@@ -44,9 +56,32 @@
             out.println("<td align=center>"+goods.get(i).getDown_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getCreate_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
+            switch (i){
+                case 0:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonadd\">添加</a>"+"</td");
+                    break;
+                case 1:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonadd1\">添加</a>"+"</td");
+                    break;
+                case 2:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonadd2\">添加</a>"+"</td");
+                    break;
+                case 3:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonadd3\">添加</a>"+"</td");
+                    break;
+                case 4:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonadd4\">添加</a>"+"</td");
+                    break;
+                case 5:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonadd5\">添加</a>"+"</td");
+                    break;
+            }
+
             out.println("</tr>");
+
         }
     %>
+
 </table></center>
 <p>以下为购物车页面</p>
 <table border="1">
@@ -72,7 +107,7 @@
     </tr>
 </table>
 
-
+<a href="/buyer/back1">返回上级页面</a>
 </form>
 </body>
 </html>

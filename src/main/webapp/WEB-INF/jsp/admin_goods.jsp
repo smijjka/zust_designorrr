@@ -1,4 +1,5 @@
-<%--
+<%@ page import="cn.edu.zust.se.order.vo.Goods" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2022/6/4
@@ -16,6 +17,38 @@
     <title>商品管理页面</title>
 </head>
 <body>
+<p>以下为商品列表</p>
+<center><table border="1">
+  <tr>
+    <th width="100">id</th>
+    <th width="100">name</th>
+    <th width="100">category</th>
+    <th width="100">seller_id</th>
+    <th width="100">price</th>
+    <th width="100">num</th>
+    <th width="100">up_time</th>
+    <th width="100">down_time</th>
+    <th width="100">create_time</th>
+    <th width="100">status</th>
+  </tr>
+  <%
+    List<Goods> goods= (List<Goods>) request.getSession().getAttribute("goods");
+    for (int i=0;i<goods.size();i++){
+      out.println("<tr>");
+      out.println("<td align=center>"+goods.get(i).getId()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getName()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getCategory()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getSell_id()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getPrice()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getNum()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getUp_time()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getDown_time()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getCreate_time()+"</td>");
+      out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
+      out.println("</tr>");
+    }
+  %>
+</table></center>
 下架商品
 <form action="/admin/delete1" method="post">
   id <input type="text" name="id"><br>
@@ -31,5 +64,6 @@
   status(1为正常出售) <input type="text" name="status"><br>
   <input type="submit" name="submit" value="点击修改商品信息"><br>
 </form>
+<a href="/admin/back5">返回</a>
 </body>
 </html>

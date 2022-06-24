@@ -53,38 +53,7 @@
         <tr>
             <th colspan="5">管理</th>
         </tr>
-<tr>
-    <td>
-        <form action="/admin/add_user" method="post">
-            id <input type="text" name="id"><br>
-            login_name <input type="text" name="login_name"><br>
-            password <input type="text" name="password"><br>
-            name <input type="text" name="name"><br>
-            mobile <input type="text" name="mobile"><br>
-            email <input type="text" name="email"><br>
-            type <input type="text" name="type"><br>
-            <input type="submit" name="submit" value="点击添加用户"><br>
-        </form>
-    </td>
-    <td>
-        <form action="/admin/delete" method="post">
-            id <input type="text" name="id"><br>
-            <input type="submit" name="submit" value="点击删除该用户"><br>
-        </form>
-    </td>
-    <td>
-        <form action="/admin/update" method="post">
-            id <input type="text" name="id"><br>
-            login_name <input type="text" name="login_name"><br>
-            password <input type="text" name="password"><br>
-            name <input type="text" name="name"><br>
-            mobile <input type="text" name="mobile"><br>
-            email <input type="text" name="email"><br>
-            type <input type="text" name="type"><br>
-            <input type="submit" name="submit" value="点击修改用户信息"><br>
-        </form>
-    </td>
-</tr>
+        <tr>  <td colspan="5" align="center"><a href="/admin/admin_users">点击进入用户管理页面</a><br></td></tr>
         <tr>
             <td colspan="5" align="center"><a href="/admin/admin_goods">点击进入商品管理页面</a><br></td>
         </tr>
@@ -94,32 +63,6 @@
     </table>
 </div>
 <a href="/admin/show">点击查看用户清单</a><br>
-增加用户：
-<form action="/admin/add_user" method="post">
-    id <input type="text" name="id"><br>
-    login_name <input type="text" name="login_name"><br>
-    password <input type="text" name="password"><br>
-    name <input type="text" name="name"><br>
-    mobile <input type="text" name="mobile"><br>
-    email <input type="text" name="email"><br>
-    type <input type="text" name="type"><br>
-    <input type="submit" name="submit" value="点击添加用户"><br>
-</form>
-删除用户：
-<form action="/admin/delete" method="post">
-id <input type="text" name="id"><br>
-    <input type="submit" name="submit" value="点击删除该用户"><br>
-</form>
-修改用户信息：
-<form action="/admin/update" method="post">
-    id <input type="text" name="id"><br>
-    login_name <input type="text" name="login_name"><br>
-    password <input type="text" name="password"><br>
-    name <input type="text" name="name"><br>
-    mobile <input type="text" name="mobile"><br>
-    email <input type="text" name="email"><br>
-    type <input type="text" name="type"><br>
-    <input type="submit" name="submit" value="点击修改用户信息"><br>
-</form>
+
 </body>
 </html>

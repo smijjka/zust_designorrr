@@ -59,5 +59,6 @@
         }
     %>
 </table></center>
+<a href="/buyer/back">点击返回</a>
 </body>
 </html>

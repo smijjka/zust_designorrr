@@ -32,13 +32,22 @@ public class AdminServlet extends BaseServlet {
         out.println("uri:" + uri.substring(index + 1));
         out.println(req.getMethod());
         if ("add_user".equals(methodName)) {
-doAdd(req,res);
+            doAdd(req,res);
+        }
+        if ("admin_shopping".equals(methodName)) {
+            doadmin_shopping(req,res);
         }
         if ("delete".equals(methodName)) {
-doDele(req,res);
+            doDele(req,res);
+        }
+        if ("zhongzhuan3".equals(methodName)) {
+            dozhongzhuan3(req,res);
+        }
+        if ("zhongzhuan4".equals(methodName)) {
+            dozhongzhuan4(req,res);
         }
         if ("update".equals(methodName)) {
-doUpdate(req,res);
+            doUpdate(req,res);
         }
         if ("show".equals(methodName)) {
             doShow(req,res);
@@ -76,6 +85,33 @@ doUpdate(req,res);
         if ("money1".equals(methodName)) {
             domoney1(req,res);
         }
+        if ("admin_users".equals(methodName)) {
+            dousers(req,res);
+        }
+        if ("back4".equals(methodName)) {
+            doback4(req,res);
+        }
+        if ("back5".equals(methodName)) {
+            doback5(req,res);
+        }
+        if ("zhongzhuan5".equals(methodName)) {
+            dozhongzhuan5(req,res);
+        }
+    }
+    public void doadmin_shopping(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<Goods> list=new ArrayList<>();
+        try{
+            String sql="select * from t_goods where status="+1+"";
+            ResultSet rs=DBUtil.select(sql);
+            while (rs.next()){
+                Goods g=rs6User(rs);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        req.getRequestDispatcher("/WEB-INF/jsp/admin_shopping.jsp").forward(req,res);
     }
     public UserVo rs2User(ResultSet rs) {
         UserVo u = new UserVo();
@@ -92,6 +128,53 @@ doUpdate(req,res);
         }
         return u;
     }
+    public void doback4(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+
+        req.getRequestDispatcher("/WEB-INF/jsp/adminHome.jsp").forward(req,res);
+    }
+    public void doback5(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<T_order> list=new ArrayList<>();
+        try {
+            UserVo user= (UserVo) req.getSession().getAttribute("user");
+            int id=user.getId();
+            ResultSet rs = DBUtil.select("select * from t_order where status="+1+"");
+            while (rs.next()){
+                T_order t=rs7User(rs);
+                list.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("t_order",list);
+        req.getRequestDispatcher("/WEB-INF/jsp/admin_item.jsp").forward(req,res);
+    }
+    public void dozhongzhuan3(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        req.getRequestDispatcher("/WEB-INF/jsp/admin_users.jsp").forward(req,res);
+    }
+    public  void dozhongzhuan4(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        dogoodss(req,res);
+        req.getRequestDispatcher("/WEB-INF/jsp/admin_goods.jsp").forward(req,res);
+    }
+    public void dozhongzhuan5(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<T_order> list=new ArrayList<>();
+        try {
+            UserVo user= (UserVo) req.getSession().getAttribute("user");
+            int id=user.getId();
+            ResultSet rs = DBUtil.select("select * from t_order where status="+1+"");
+            while (rs.next()){
+                T_order t=rs7User(rs);
+                list.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("t_order",list);
+        req.getRequestDispatcher("/WEB-INF/jsp/admin_item.jsp").forward(req,res);
+    }
+    public void dousers(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        doShow2(req,res);
+        req.getRequestDispatcher("/WEB-INF/jsp/admin_users.jsp").forward(req,res);
+    }
     public void doAdd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         int id= Integer.parseInt(req.getParameter("id"));
         String login_name=req.getParameter("login_name");
@@ -100,25 +183,42 @@ doUpdate(req,res);
         String mobile=req.getParameter("mobile");
         String email=req.getParameter("email");
         int type= Integer.parseInt(req.getParameter("type"));
-        ResultSet rs= DBUtil.select("select * from t_user where id="+id+")");
-        if (rs==null){
-            DBUtil.update("insert into t_user values("+id+",'"+login_name+"','"+password+"','"+name+"','"+mobile+"','"+email+"',"+type+")");
-            out.println("用户添加成功");
-            out.println(id);
-        }
-        else {
-            out.println("已有该用户，请勿重复添加");
+        ResultSet rs= DBUtil.select("select * from t_user where id="+id+"");
+        try {
+            if (rs.next()){
+                String str3="已有该用户，请勿重复添加";
+                req.getSession().setAttribute("str3",str3);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan3.jsp").forward(req,res);
+
+            }
+            else {
+                DBUtil.update("insert into t_user values("+id+",'"+login_name+"','"+password+"','"+name+"','"+mobile+"','"+email+"',"+type+")");
+                String str3="用户添加成功";
+                req.getSession().setAttribute("str3",str3);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan3.jsp").forward(req,res);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     public void doDele(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-int id= Integer.parseInt(req.getParameter("id"));
-ResultSet rs=DBUtil.select("select * from t_user where id="+id+"");
-if (rs==null){
-    out.println("该用户不存在！");
-}else {
-    DBUtil.update("delete from t_user where id="+id+"");
-    out.println("删除用户成功");
-}
+        int id= Integer.parseInt(req.getParameter("id"));
+        ResultSet rs=DBUtil.select("select * from t_user where id="+id+"");
+        try {
+            if (rs.next()){
+                DBUtil.update("delete from t_user where id="+id+"");
+                String str3="删除用户成功";
+                req.getSession().setAttribute("str3",str3);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan3.jsp").forward(req,res);
+
+            }else {
+                String str3="该用户不存在";
+                req.getSession().setAttribute("str3",str3);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan3.jsp").forward(req,res);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void doUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         int id= Integer.parseInt(req.getParameter("id"));
@@ -132,20 +232,24 @@ if (rs==null){
         try {
             if (rs.next()){
                 DBUtil.update("update t_user set login_name='"+login_name+"',password='"+password+"',name='"+name+"',mobile='"+mobile+"',email='"+email+"',type="+type+" where id="+id+"");
-                out.println("修改用户信息成功");
+                String str3="修改用户信息成功";
+                req.getSession().setAttribute("str3",str3);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan3.jsp").forward(req,res);
 
             }else {
-                out.println("该用户不存在！");
+                String str3="该用户不存在";
+                req.getSession().setAttribute("str3",str3);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan3.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     public void doShow(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-ResultSet rs=DBUtil.select("select * from t_user");
+        ResultSet rs=DBUtil.select("select * from t_user");
         List<UserVo> user1=new ArrayList<>();
         try {
-            if (rs.next()) {
+            while(rs.next()) {
                 UserVo u = rs2User(rs);
                 user1.add(u);
             }
@@ -155,6 +259,19 @@ ResultSet rs=DBUtil.select("select * from t_user");
         req.getSession().setAttribute("user1",user1);
         req.getRequestDispatcher("/WEB-INF/jsp/usershow.jsp").forward(req,res);
     }
+    public void doShow2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        ResultSet rs=DBUtil.select("select * from t_user");
+        List<UserVo> user1=new ArrayList<>();
+        try {
+            while(rs.next()) {
+                UserVo u = rs2User(rs);
+                user1.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("user2",user1);
+    }
     public void dodel1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         int id= Integer.parseInt(req.getParameter("id"));
         String name=req.getParameter("name");
@@ -162,66 +279,74 @@ ResultSet rs=DBUtil.select("select * from t_user");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                out.println("删除成功");
+                String str4="删除商品信息成功";
+                req.getSession().setAttribute("str4",str4);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan4.jsp").forward(req,res);
             }else {
-                out.println("该商品不存在");
+                String str4="该商品不存在，请重新输入";
+                req.getSession().setAttribute("str4",str4);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan4.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     public void doupdate1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-int id= Integer.parseInt(req.getParameter("id"));
-String name=req.getParameter("name");
-int price= Integer.parseInt(req.getParameter("price"));
-int num= Integer.parseInt(req.getParameter("num"));
-int status= Integer.parseInt(req.getParameter("status"));
-ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
+        int id= Integer.parseInt(req.getParameter("id"));
+        String name=req.getParameter("name");
+        int price= Integer.parseInt(req.getParameter("price"));
+        int num= Integer.parseInt(req.getParameter("num"));
+        int status= Integer.parseInt(req.getParameter("status"));
+        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("update t_goods set name='"+name+"',price="+price+",num="+num+",status="+status+" where id="+id+"");
-                out.println("修改成功");
+                String str4="修改商品信息成功";
+                req.getSession().setAttribute("str4",str4);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan4.jsp").forward(req,res);
 
             }else {
-                out.println("该商品不存在");
+                String str4="该商品不存在。请重新输入";
+                req.getSession().setAttribute("str4",str4);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan4.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     public void doAdd1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-int id= Integer.parseInt(req.getParameter("id"));
-int order_id= Integer.parseInt(req.getParameter("order_id"));
-int goods_id= Integer.parseInt(req.getParameter("goods_id"));
-int num= Integer.parseInt(req.getParameter("num"));
-ResultSet rs=DBUtil.select("select * from t_order_item where id="+id+"");
-if (rs==null){
-    DBUtil.update("insert into t_order_item values("+id+","+order_id+","+goods_id+","+num+")");
-    out.println("添加订单成功");
-}
+        int id= Integer.parseInt(req.getParameter("id"));
+        int order_id= Integer.parseInt(req.getParameter("order_id"));
+        int goods_id= Integer.parseInt(req.getParameter("goods_id"));
+        int num= Integer.parseInt(req.getParameter("num"));
+        ResultSet rs=DBUtil.select("select * from t_order_item where id="+id+"");
+        if (rs==null){
+            DBUtil.update("insert into t_order_item values("+id+","+order_id+","+goods_id+","+num+")");
+            out.println("添加订单成功");
+        }
     }
     public void doupdate2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-int id= Integer.parseInt(req.getParameter("id"));
-int num= Integer.parseInt(req.getParameter("num"));
-ResultSet rs=DBUtil.select("select * from t_order_item where id="+id+"");
+        int id= Integer.parseInt(req.getParameter("id"));
+        int amount= Integer.parseInt(req.getParameter("amount"));
+        int status= Integer.parseInt(req.getParameter("status"));
+        int price= Integer.parseInt(req.getParameter("price"));
+        ResultSet rs=DBUtil.select("select * from t_order where id="+id+"");
         try {
             if (rs.next()){
-                DBUtil.update("update t_order_item set num="+num+" where id="+id+"" );
-                out.println("订单修改成功");
+                DBUtil.update("update t_order set amount="+amount+",price="+price+",status="+status+" where id="+id+"" );
+                String str5="订单修改成功";
+req.getSession().setAttribute("str4",str5);
+req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan5.jsp").forward(req,res);
             }else {
-                out.println("该订单信息不存在");
+                String str5="该订单信息不存在";
+                req.getSession().setAttribute("str4",str5);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan5.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     public void dogoods(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        req.getRequestDispatcher("/WEB-INF/jsp/admin_goods.jsp").forward(req,res);
-    }
-    public void doitems(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        req.getRequestDispatcher("/admin/shop").forward(req,res);
-    }
-    public void doshop(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> list=new ArrayList<>();
         try{
             String sql="select * from t_goods where status="+1+"";
@@ -234,6 +359,39 @@ ResultSet rs=DBUtil.select("select * from t_order_item where id="+id+"");
             e.printStackTrace();
         }
         req.getSession().setAttribute("goods",list);
+        req.getRequestDispatcher("/WEB-INF/jsp/admin_goods.jsp").forward(req,res);
+    }
+    public void dogoodss(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<Goods> list=new ArrayList<>();
+        try{
+            String sql="select * from t_goods where status="+1+"";
+            ResultSet rs=DBUtil.select(sql);
+            while (rs.next()){
+                Goods g=rs6User(rs);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+    }
+    public void doitems(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        req.getRequestDispatcher("/admin/shop").forward(req,res);
+    }
+    public void doshop(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<T_order> list=new ArrayList<>();
+        try {
+            UserVo user= (UserVo) req.getSession().getAttribute("user");
+            int id=user.getId();
+            ResultSet rs = DBUtil.select("select * from t_order where status="+1+"");
+            while (rs.next()){
+                T_order t=rs7User(rs);
+                list.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("t_order",list);
         req.getRequestDispatcher("/WEB-INF/jsp/admin_item.jsp").forward(req,res);
     }
     public Goods rs6User(ResultSet rs) throws SQLException {
@@ -270,13 +428,18 @@ ResultSet rs=DBUtil.select("select * from t_order_item where id="+id+"");
             String order_time = sdf.format(d);
             String submit_time = order_time;
             // String sql="select * from t_order_item where id="+id+"";
-            ResultSet rst = DBUtil.select("select * from t_order where id=" + id + ")");
-            if (rst == null) {
+            ResultSet rst = DBUtil.select("select * from t_order where id=" + id + "");
+            if (rst.next()) {
+                String str1="购物车中已有该商品，请勿重复添加！";
+                req.getSession().setAttribute("str5",str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan4.jsp").forward(req,res);
+            } else {
                 String sql1 = "insert into t_order values(" + id + "," + goods_id + "," + buyer_id + "," + seller_id + "," + price + ",'" + order_time + "','" + submit_time + "'," + amount + "," + status + ")";
                 DBUtil.update(sql1);
-                out.println("添加商品成功");
-            } else {
-                out.println("购物车中已有该商品，请勿重复添加！");
+                String str1="添加商品成功";
+                req.getSession().setAttribute("str5",str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan4.jsp").forward(req,res);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -299,7 +462,7 @@ ResultSet rs=DBUtil.select("select * from t_order_item where id="+id+"");
             e.printStackTrace();
         }
         req.getSession().setAttribute("t_order",list);
-        req.getRequestDispatcher("/WEB-INF/jsp/t_ordershow1.jsp").forward(req,res);
+        req.getRequestDispatcher("/WEB-INF/jsp/t_ordershow.jsp").forward(req,res);
     }
     public T_order rs7User(ResultSet rs) throws SQLException {
         T_order u=new T_order();
@@ -347,5 +510,5 @@ ResultSet rs=DBUtil.select("select * from t_order_item where id="+id+"");
         req.getRequestDispatcher("/WEB-INF/jsp/Check.jsp").forward(req,res);
         return sum;
     }
-    }
+}
 

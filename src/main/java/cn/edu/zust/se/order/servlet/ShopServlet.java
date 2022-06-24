@@ -28,37 +28,330 @@ import static java.lang.System.out;
 public class ShopServlet extends BaseServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String uri=req.getRequestURI();
-        int index=uri.lastIndexOf("/");
-        String methodName=uri.substring(index+1);
-        out.println("uri:"+uri.substring(index+1));
+        String uri = req.getRequestURI();
+        int index = uri.lastIndexOf("/");
+        String methodName = uri.substring(index + 1);
+        out.println("uri:" + uri.substring(index + 1));
         out.println(req.getMethod());
-        if("add_sho".equals(methodName)){
-            add_sho(req,res);
+        if ("add_sho".equals(methodName)) {
+            add_sho(req, res);
         }
-        if("delete_sho".equals(methodName)){
-            delete_sho(req,res);
+        if ("delete_sho".equals(methodName)) {
+            delete_sho(req, res);
         }
-        if("show_sho".equals(methodName)){
-            show_sho(req,res);
+        if ("shoppingjsp".equals(methodName)) {
+            doshoppingjsp(req, res);
         }
-        if("shoppingjsp".equals(methodName)){
-            dojsp(req,res);
+        if ("showjsp".equals(methodName)) {
+            doshow(req, res);
         }
-        if("showjsp".equals(methodName)){
-            doshow(req,res);
+        if ("show".equals(methodName)) {
+            doshow1(req, res);
         }
-        if("show".equals(methodName)){
-            doshow1(req,res);
+        if ("update".equals(methodName)) {
+            doupdate(req, res);
         }
-        if("update".equals(methodName)){
-            doupdate(req,res);
+        if ("money".equals(methodName)) {
+            domoney(req, res);
         }
-        if("money".equals(methodName)){
-            domoney(req,res);
+        if ("empty".equals(methodName)) {
+            doempty(req, res);
         }
-        if("empty".equals(methodName)){
-            doempty(req,res);
+        if ("back".equals(methodName)) {
+            doback(req, res);
+        }
+        if ("back1".equals(methodName)) {
+            doback1(req, res);
+        }
+        if ("back2".equals(methodName)) {
+            doback2(req, res);
+        }
+        if ("zhongzhuan1".equals(methodName)) {
+            dozhongzhuan1(req, res);
+        }
+        if ("zhongzhuan2".equals(methodName)) {
+            dozhongzhuan2(req, res);
+        }
+        if ("back3".equals(methodName)) {
+            doback3(req, res);
+        }
+        if ("buttonadd".equals(methodName)) {
+            dobuttonadd(req, res);
+        }
+        if ("buttonadd1".equals(methodName)) {
+            dobuttonadd1(req, res);
+        }
+        if ("buttonadd2".equals(methodName)) {
+            dobuttonadd2(req, res);
+        }
+        if ("buttonadd3".equals(methodName)) {
+            dobuttonadd3(req, res);
+        }
+        if ("buttonadd4".equals(methodName)) {
+            dobuttonadd4(req, res);
+        }
+        if ("buttonadd5".equals(methodName)) {
+            dobuttonadd5(req, res);
+        }
+    }
+
+    public void dobuttonadd(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try{
+            List<Goods> goods = (List<Goods>) req.getSession().getAttribute("goods");
+            int id = goods.get(0).getId();
+            int seller_id = goods.get(0).getSell_id();
+            int price = goods.get(0).getPrice();
+            int num = goods.get(0).getNum();
+            int status = goods.get(0).getStatus();
+            UserVo user = (UserVo) req.getSession().getAttribute("user");
+            int buyer_id = user.getId();
+            ResultSet rs = DBUtil.select("select * from t_goods where id=" + id + "");
+            if (rs.next()) {
+                price = rs.getInt("price");
+            }
+            Date d = new Date();// new Date()为获取当前系统时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//MM，HH，SSS要大写
+            //需要导入java.text.*包
+            String order_time = sdf.format(d);
+            String submit_time = order_time;
+            // String sql="select * from t_order_item where id="+id+"";
+            int idd1=id+6;
+            ResultSet rst = DBUtil.select("select * from t_order where id=" + idd1 + "");
+            if (rst.next()) {
+                String str1 = "购物车中已有该商品，请勿重复添加！";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+            } else {
+                int idd=id+6;
+                String sql1 = "insert into t_order values(" + idd + "," + id + "," + buyer_id + "," + seller_id + "," + price + ",'" + order_time + "','" + submit_time + "'," + num + "," + status + ")";
+                DBUtil.update(sql1);
+                String str1 = "添加商品成功";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        } finally{
+
+        }
+    }
+    public void dobuttonadd1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try{
+            List<Goods> goods = (List<Goods>) req.getSession().getAttribute("goods");
+            int id = goods.get(1).getId();
+            int seller_id = goods.get(1).getSell_id();
+            int price = goods.get(1).getPrice();
+            int num = goods.get(1).getNum();
+            int status = goods.get(1).getStatus();
+            UserVo user = (UserVo) req.getSession().getAttribute("user");
+            int buyer_id = user.getId();
+            ResultSet rs = DBUtil.select("select * from t_goods where id=" + id + "");
+            if (rs.next()) {
+                price = rs.getInt("price");
+            }
+            Date d = new Date();// new Date()为获取当前系统时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//MM，HH，SSS要大写
+            //需要导入java.text.*包
+            String order_time = sdf.format(d);
+            String submit_time = order_time;
+            // String sql="select * from t_order_item where id="+id+"";
+            int idd1=id+6;
+            ResultSet rst = DBUtil.select("select * from t_order where id=" + idd1 + "");
+            if (rst.next()) {
+                String str1 = "购物车中已有该商品，请勿重复添加！";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+            } else {
+                int idd=id+6;
+                String sql1 = "insert into t_order values(" + idd + "," + id + "," + buyer_id + "," + seller_id + "," + price + ",'" + order_time + "','" + submit_time + "'," + num + "," + status + ")";
+                DBUtil.update(sql1);
+                String str1 = "添加商品成功";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        } finally{
+
+        }
+    }
+
+    public void dobuttonadd2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try{
+            List<Goods> goods = (List<Goods>) req.getSession().getAttribute("goods");
+            int id = goods.get(2).getId();
+            int seller_id = goods.get(2).getSell_id();
+            int price = goods.get(2).getPrice();
+            int num = goods.get(2).getNum();
+            int status = goods.get(2).getStatus();
+            UserVo user = (UserVo) req.getSession().getAttribute("user");
+            int buyer_id = user.getId();
+            ResultSet rs = DBUtil.select("select * from t_goods where id=" + id + "");
+            if (rs.next()) {
+                price = rs.getInt("price");
+            }
+            Date d = new Date();// new Date()为获取当前系统时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//MM，HH，SSS要大写
+            //需要导入java.text.*包
+            String order_time = sdf.format(d);
+            String submit_time = order_time;
+            // String sql="select * from t_order_item where id="+id+"";
+            int idd1=id+6;
+            ResultSet rst = DBUtil.select("select * from t_order where id=" + idd1 + "");
+            if (rst.next()) {
+                String str1 = "购物车中已有该商品，请勿重复添加！";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+            } else {
+                int idd=id+6;
+                String sql1 = "insert into t_order values(" + idd + "," + id + "," + buyer_id + "," + seller_id + "," + price + ",'" + order_time + "','" + submit_time + "'," + num + "," + status + ")";
+                DBUtil.update(sql1);
+                String str1 = "添加商品成功";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        } finally{
+
+        }
+    }
+    public void dobuttonadd3(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try{
+            List<Goods> goods = (List<Goods>) req.getSession().getAttribute("goods");
+            int id = goods.get(3).getId();
+            int seller_id = goods.get(3).getSell_id();
+            int price = goods.get(3).getPrice();
+            int num = goods.get(3).getNum();
+            int status = goods.get(3).getStatus();
+            UserVo user = (UserVo) req.getSession().getAttribute("user");
+            int buyer_id = user.getId();
+            ResultSet rs = DBUtil.select("select * from t_goods where id=" + id + "");
+            if (rs.next()) {
+                price = rs.getInt("price");
+            }
+            Date d = new Date();// new Date()为获取当前系统时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//MM，HH，SSS要大写
+            //需要导入java.text.*包
+            String order_time = sdf.format(d);
+            String submit_time = order_time;
+            // String sql="select * from t_order_item where id="+id+"";
+            int idd1=id+6;
+            ResultSet rst = DBUtil.select("select * from t_order where id=" + idd1 + "");
+            if (rst.next()) {
+                String str1 = "购物车中已有该商品，请勿重复添加！";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+            } else {
+                int idd=id+6;
+                String sql1 = "insert into t_order values(" + idd + "," + id + "," + buyer_id + "," + seller_id + "," + price + ",'" + order_time + "','" + submit_time + "'," + num + "," + status + ")";
+                DBUtil.update(sql1);
+                String str1 = "添加商品成功";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        } finally{
+
+        }
+    }
+    public void dobuttonadd4(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try{
+            List<Goods> goods = (List<Goods>) req.getSession().getAttribute("goods");
+            int id = goods.get(4).getId();
+            int seller_id = goods.get(4).getSell_id();
+            int price = goods.get(4).getPrice();
+            int num = goods.get(4).getNum();
+            int status = goods.get(4).getStatus();
+            UserVo user = (UserVo) req.getSession().getAttribute("user");
+            int buyer_id = user.getId();
+            ResultSet rs = DBUtil.select("select * from t_goods where id=" + id + "");
+            if (rs.next()) {
+                price = rs.getInt("price");
+            }
+            Date d = new Date();// new Date()为获取当前系统时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//MM，HH，SSS要大写
+            //需要导入java.text.*包
+            String order_time = sdf.format(d);
+            String submit_time = order_time;
+            // String sql="select * from t_order_item where id="+id+"";
+            int idd1=id+6;
+            ResultSet rst = DBUtil.select("select * from t_order where id=" + idd1 + "");
+            if (rst.next()) {
+                String str1 = "购物车中已有该商品，请勿重复添加！";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+            } else {
+                int idd=id+6;
+                String sql1 = "insert into t_order values(" + idd + "," + id + "," + buyer_id + "," + seller_id + "," + price + ",'" + order_time + "','" + submit_time + "'," + num + "," + status + ")";
+                DBUtil.update(sql1);
+                String str1 = "添加商品成功";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        } finally{
+
+        }
+    }
+    public void dobuttonadd5(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        try{
+            List<Goods> goods = (List<Goods>) req.getSession().getAttribute("goods");
+            int id = goods.get(5).getId();
+            int seller_id = goods.get(5).getSell_id();
+            int price = goods.get(5).getPrice();
+            int num = goods.get(5).getNum();
+            int status = goods.get(5).getStatus();
+            UserVo user = (UserVo) req.getSession().getAttribute("user");
+            int buyer_id = user.getId();
+            ResultSet rs = DBUtil.select("select * from t_goods where id=" + id + "");
+            if (rs.next()) {
+                price = rs.getInt("price");
+            }
+            Date d = new Date();// new Date()为获取当前系统时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//MM，HH，SSS要大写
+            //需要导入java.text.*包
+            String order_time = sdf.format(d);
+            String submit_time = order_time;
+            // String sql="select * from t_order_item where id="+id+"";
+            int idd1=id+6;
+            ResultSet rst = DBUtil.select("select * from t_order where id=" + idd1 + "");
+            if (rst.next()) {
+                String str1 = "购物车中已有该商品，请勿重复添加！";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+            } else {
+                int idd=id+6;
+                String sql1 = "insert into t_order values(" + idd + "," + id + "," + buyer_id + "," + seller_id + "," + price + ",'" + order_time + "','" + submit_time + "'," + num + "," + status + ")";
+                DBUtil.update(sql1);
+                String str1 = "添加商品成功";
+                req.getSession().setAttribute("str1", str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req, res);
+
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        } finally{
+
         }
     }
     public Order rs2User(ResultSet rs) throws SQLException {
@@ -69,23 +362,22 @@ public class ShopServlet extends BaseServlet {
         u.setNum(rs.getInt("num"));
         return u;
     }
-
-    public void show_sho(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Order> order = new ArrayList<>();
-        try {
-            ResultSet rs=DBUtil.select("select * from t_order_item");
-            if (rs.next()){
-                Order or=rs2User(rs);
-                order.add(or);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        for (int i=0;i<order.size();i++){
-            out.println(order.get(i).toString());
-            out.println("<br>");
-        }
-        out.println("<a href=\"/buyer/buy\">付款购买</a>");
+    public void dozhongzhuan1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        req.getRequestDispatcher("/WEB-INF/jsp/shopping.jsp").forward(req,res);
+    }
+    public void dozhongzhuan2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        doshow2(req,res);
+        req.getRequestDispatcher("/WEB-INF/jsp/t_ordershow.jsp").forward(req,res);
+    }
+public void doback1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        req.getRequestDispatcher("/WEB-INF/jsp/buyerHome.jsp").forward(req,res);
+}
+    public void doback2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        req.getRequestDispatcher("/WEB-INF/jsp/shopping.jsp").forward(req,res);
+    }
+    public void doback3(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        doshow2(req,res);
+        req.getRequestDispatcher("/WEB-INF/jsp/t_ordershow.jsp").forward(req,res);
     }
     public void delete_sho(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 int id= Integer.parseInt(req.getParameter("id"));
@@ -94,12 +386,16 @@ int buyer_id= Integer.parseInt(req.getParameter("buyer_id"));
 try{
     String sql="select * from t_order where id="+id+"";
     ResultSet rs=DBUtil.select(sql);
-    if (rs==null){
-        out.println("当前购物车没有该商品");
-    }else {
+    if (rs.next()){
         String sql1="delete from t_order where id="+id+"";
         DBUtil.update(sql1);
-        out.println("删除成功");
+        String str2="删除成功";
+        req.getSession().setAttribute("str2",str2);
+        req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan2.jsp").forward(req,res);
+    }else {
+        String str2="当前购物车中没有该商品";
+        req.getSession().setAttribute("str2",str2);
+        req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan2.jsp").forward(req,res);
     }
 } catch (Exception e) {
     e.printStackTrace();
@@ -125,13 +421,18 @@ try{
             String order_time = sdf.format(d);
             String submit_time = order_time;
             // String sql="select * from t_order_item where id="+id+"";
-            ResultSet rst = DBUtil.select("select * from t_order where id=" + id + ")");
-            if (rst == null) {
+            ResultSet rst = DBUtil.select("select * from t_order where id=" + id + "");
+            if (rst.next()) {
+               String str1="购物车中已有该商品，请勿重复添加！";
+               req.getSession().setAttribute("str1",str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req,res);
+            } else {
                 String sql1 = "insert into t_order values(" + id + "," + goods_id + "," + buyer_id + "," + seller_id + "," + price + ",'" + order_time + "','" + submit_time + "'," + amount + "," + status + ")";
                 DBUtil.update(sql1);
-                out.println("添加商品成功");
-            } else {
-                out.println("购物车中已有该商品，请勿重复添加！");
+                String str1="添加商品成功";
+                req.getSession().setAttribute("str1",str1);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req,res);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -141,7 +442,7 @@ try{
 
     }
 
-    public void dojsp(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+    public void doshoppingjsp(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> list=new ArrayList<>();
         try{
             String sql="select * from t_goods where status="+1+"";
@@ -201,6 +502,21 @@ try {
 req.getSession().setAttribute("t_order",list);
 req.getRequestDispatcher("/WEB-INF/jsp/t_ordershow.jsp").forward(req,res);
     }
+    public void doshow2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<T_order> list=new ArrayList<>();
+        try {
+            UserVo user= (UserVo) req.getSession().getAttribute("user");
+            int id=user.getId();
+            ResultSet rs = DBUtil.select("select * from t_order where buyer_id="+id+"");
+            while (rs.next()){
+                T_order t=rs4User(rs);
+                list.add(t);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("t_order",list);
+    }
     public T_order rs4User(ResultSet rs) throws SQLException {
         T_order u=new T_order();
         u.setId(rs.getInt("id"));
@@ -221,8 +537,13 @@ req.getRequestDispatcher("/WEB-INF/jsp/t_ordershow.jsp").forward(req,res);
         try {
             if (rs.next()){
                 DBUtil.update("update t_order set amount="+amount+" where id="+id+"");
+                String str2="修改商品数量成功";
+                req.getSession().setAttribute("str2",str2);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan2.jsp").forward(req,res);
             }else {
-                out.println("输入信息不存在");
+                String str2="输入信息不存在";
+                req.getSession().setAttribute("str2",str2);
+                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan2.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -231,10 +552,11 @@ req.getRequestDispatcher("/WEB-INF/jsp/t_ordershow.jsp").forward(req,res);
     public int domoney(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         UserVo user= (UserVo) req.getSession().getAttribute("user");
         int id1=user.getId();
+        out.println(id1);
         int sum=0;
         List<T_order> list=new ArrayList<>();
         try {
-            ResultSet rs = DBUtil.select("select * from t_order where buyer_id="+id1+"");
+            ResultSet rs = DBUtil.select("select * from t_order where buyer_id="+id1+" and status="+1+"");
             while (rs.next()){
                 T_order t=rs4User(rs);
                 list.add(t);
@@ -242,19 +564,21 @@ req.getRequestDispatcher("/WEB-INF/jsp/t_ordershow.jsp").forward(req,res);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+req.getSession().setAttribute("t_order",list);
 
         for (int i=0;i<list.size();i++){
             int order_id=list.get(i).getId();
             int goods_id=list.get(i).getGoods_id();
             int num=list.get(i).getAmount();
 int id=order_id;
-ResultSet rs=DBUtil.select("select * from t_order_item where buyer_id="+id+"");
+ResultSet rs=DBUtil.select("select * from t_order_item where order_id="+id+"");
             try {
                 if (rs != null ? rs.next() : false) {
                   out.println("已有该订单");
                 }else {
                     DBUtil.update("insert into t_order_item values(" + id + "," + order_id + "," + goods_id + "," + num + ")");
                     out.println("插入成功");
+                    DBUtil.update("update t_order set status="+0+" where buyer_id="+id1+"");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -266,6 +590,12 @@ ResultSet rs=DBUtil.select("select * from t_order_item where buyer_id="+id+"");
     public void doempty(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         UserVo user= (UserVo) req.getSession().getAttribute("user");
         int id=user.getId();
-        DBUtil.update("delete from t_order where buyer_id="+id+"");
+        DBUtil.update("update t_order set status="+0+" where buyer_id="+id+"");
+        String str="清空购物车成功";
+        req.getSession().setAttribute("str1",str);
+        req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan1.jsp").forward(req,res);
+    }
+    public void doback(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        req.getRequestDispatcher("/WEB-INF/jsp/buyerHome.jsp").forward(req,res);
     }
 }

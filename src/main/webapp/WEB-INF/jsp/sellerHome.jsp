@@ -58,6 +58,7 @@
 
         <tr>
             <td colspan="5" align="center"><a href="/seller/selljsp">点击进入商品管理页面</a></td>
+            <td colspan="5" align="center"><a href="/seller/selljs">点击进入商品管理页面</a></td>
         </tr>
     </table>
 </div>

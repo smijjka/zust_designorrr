@@ -2,8 +2,8 @@
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2022/5/31
-  Time: 18:04
+  Date: 2022/6/20
+  Time: 21:25
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,12 +13,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>商品管理页面</title>
+    <title>购物页面</title>
 </head>
 <body>
-
+<p>以下为商品列表</p>
 <center><table border="1">
-    <caption>商品列表</caption>
     <tr>
         <th width="100">id</th>
         <th width="100">name</th>
@@ -48,34 +47,29 @@
             out.println("</tr>");
         }
     %>
-</table></center>
-<h1>以下为上架清单</h1>
-<center><form action="/seller/up_sho" method="post">
-    id <input type="text" name="id"><br>
-    name <input type="text" name="name"><br>
-    category <input type="text" name="category"><br>
-    price <input type="text" name="price"><br>
-    num <input type="text" name="num"><br>
-    status(1为正常出售) <input type="text" name="status"><br>
-    <input type="submit" name="submit" value="点击上架"><br>
-</form></center>
-<h1>以下为下架清单</h1>
-<center><form action="/seller/down_sho" method="post">
-    id <input type="text" name="id"><br>
-    name <input type="text" name="name"><br>
-    <input type="submit" name="submit" value="点击下架"><br>
-</form></center>
-<h1>以下为修改商品清单</h1>
-<center><form action="/seller/update_sho" method="post">
-    id <input type="text" name="id"><br>
-    请输入要修改的内容：
-    name <input type="text" name="name"><br>
-    category <input type="text" name="category"><br>
-    price <input type="text" name="price"><br>
-    num <input type="text" name="num"><br>
-    status(1为正常出售) <input type="text" name="status"><br>
-    <input type="submit" name="submit" value="点击修改"><br>
-</form></center>
-<a href="/seller/back">返回</a>
+    <p>以下为购物车页面</p>
+    <table border="1">
+        <tr>
+            <th>添加购物车</th>
+            <th>清空商品</th>
+        </tr>
+        <tr>
+            <td ><form action="/buyer/add_sho" method="post">
+                id <input type="text" name="id"><br>
+                goods_id <input type="text" name="goods_id"><br>
+                seller_id <input type="text" name="seller_id"><br>
+                amount <input type="text" name="amount"><br>
+                status <input type="text" name="status"><br>
+                <input type="submit" name="submit" value="点击添加购物清单"><br>
+            </form></td>
+            <td><form action="/buyer/empty" method="post">
+
+                <input type="submit" name="submit" value="点击清空购物车"></form></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2"><a href="/buyer/show">查看购物车</a>  </td>
+        </tr>
+    </table>
+<a href="/admin/back5">返回</a>
 </body>
 </html>
