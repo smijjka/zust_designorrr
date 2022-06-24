@@ -28,6 +28,7 @@
     <th width="100">submit_time</th>
     <th width="100">amount</th>
     <th width="100">status</th>
+    <th width="100">操作</th>
   </tr>
   <%
     List<T_order> goods= (List<T_order>) request.getSession().getAttribute("t_order");
@@ -42,6 +43,27 @@
       out.println("<td align=center>"+goods.get(i).getSubmit_time()+"</td>");
       out.println("<td align=center>"+goods.get(i).getAmount()+"</td>");
       out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
+      switch (i){
+        case 0:
+          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate\">删除</a>"+"</td");
+          break;
+        case 1:
+          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate1\">删除</a>"+"</td");
+          break;
+        case 2:
+          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate2\">删除</a>"+"</td");
+          break;
+        case 3:
+          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate3\">删除</a>"+"</td");
+          break;
+        case 4:
+          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate4\">删除</a>"+"</td");
+          break;
+        case 5:
+          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate5\">删除</a>"+"</td");
+          break;
+      }
+
       out.println("</tr>");
     }
   %>
@@ -74,8 +96,8 @@
     <td colspan="2"><a href="/buyer/money">购买</a> </td>
   </tr>
 </table>
-<a href="/buyer/back2">返回</a>
-
+<a href="/buyer/back2">buyer返回</a><br>
+<a href="/admin/back2">admin返回</a>
 </form>
 </body>
 </html>

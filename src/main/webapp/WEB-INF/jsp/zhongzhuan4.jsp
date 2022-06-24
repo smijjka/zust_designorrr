@@ -17,5 +17,6 @@
 <body>
 <p><%=request.getSession().getAttribute("str4")%></p>
 <a href="/admin/zhongzhuan4">点击继续操作</a>
+<a href="/seller/back2">seller_back</a>
 </body>
 </html>

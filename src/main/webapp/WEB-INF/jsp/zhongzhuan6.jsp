@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2022/6/21
-  Time: 13:16
+  Date: 2022/6/24
+  Time: 13:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,7 +15,8 @@
     <title>中转页面</title>
 </head>
 <body>
-<p><%=request.getSession().getAttribute("str0")%></p>
-<a href="/seller/zhongzhuan0">点击继续操作</a>
+<p><%=request.getSession().getAttribute("str1")%></p>
+<a href="/admin/zhongzhuan6">点击继续操作</a>
+
 </body>
 </html>

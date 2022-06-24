@@ -14,18 +14,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
     <title>结算页面</title>
 </head>
 <body>
 <div>
-    <center><h1>欢迎来到佳运商品系统!</h1></center>
-    <marquee bgcolor="gray" behavior="scroll">
-        <font color="white" size="+1">欢迎来到佳运商品系统!</font>
-    </marquee>
 </div>
 <h1>欢迎来到佳运商品结算页面</h1>
 <p>您的购物车信息为</p>
-<center><table border="1">
+<center><table border="1" class="table-hover" bgcolor="white">
     <tr>
         <th width="100">id</th>
         <th width="100">goods_id</th>
@@ -64,6 +62,6 @@
 <div>
     欢迎您的下一次购买
 </div>
-<a href="/buyer/back3">返回</a>
+
 </body>
 </html>

@@ -11,20 +11,20 @@
 <head>
     <title>用户首页</title>
     <link rel="stylesheet" type="text/css" href="/css/design.css">
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
 </head>
 <body link="#00ffff" alink="gray" vlink="black">
 <h1 align="center">seller home</h1>
-<h2 align="center">欢迎进入佳运商品系统!</h2>
-
 <div><%
     UserVo user= (UserVo) request.getSession().getAttribute("user");
 %>
 </div>
-<p align="center">欢迎商户<%=user.getLoginName()%>来到商户首页！</p>
+<p align="center">欢迎用户<%=user.getLoginName()%>来到用户首页！</p>
 
 
 <div >
-    <table  width="80%" border="1" align="center" cellpadding="8" cellspacing="0">
+    <table  width="80%"  border="1" align="center" class="table-hover" bgcolor="white">
         <caption><%=user.getLoginName()%>用户信息</caption>
         <tr>
             <th rowspan="2" align="center"><img src="/img/头像2.jpeg" width="300" height="300"></img></th>

@@ -84,7 +84,7 @@
 
 </table></center>
 <p>以下为购物车页面</p>
-<table border="1">
+<center><table border="1">
     <tr>
         <th>添加购物车</th>
         <th>清空商品</th>
@@ -105,7 +105,7 @@
     <tr>
         <td align="center" colspan="2"><a href="/buyer/show">查看购物车</a>  </td>
     </tr>
-</table>
+</table></center>
 
 <a href="/buyer/back1">返回上级页面</a>
 </form>

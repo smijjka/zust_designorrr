@@ -14,22 +14,25 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
-    <title>商品管理页面</title>
+  <%@include file="header.jsp"%>
+  <%@include file="footer.jsp"%>
+  <title>商品管理页面</title>
 </head>
 <body>
 <p>以下为商品列表</p>
 <center><table border="1">
   <tr>
-    <th width="100">id</th>
-    <th width="100">name</th>
-    <th width="100">category</th>
-    <th width="100">seller_id</th>
-    <th width="100">price</th>
-    <th width="100">num</th>
-    <th width="100">up_time</th>
-    <th width="100">down_time</th>
-    <th width="100">create_time</th>
-    <th width="100">status</th>
+    <th width="100">ID</th>
+    <th width="100">名称</th>
+    <th width="100">种类</th>
+    <th width="100">商户</th>
+    <th width="100">价格</th>
+    <th width="100">数量</th>
+    <th width="100">上架时间</th>
+    <th width="100">下架时间</th>
+    <th width="100">创建时间</th>
+    <th width="100">状态</th>
+    <th width="100">操作</th>
   </tr>
   <%
     List<Goods> goods= (List<Goods>) request.getSession().getAttribute("goods");
@@ -45,25 +48,49 @@
       out.println("<td align=center>"+goods.get(i).getDown_time()+"</td>");
       out.println("<td align=center>"+goods.get(i).getCreate_time()+"</td>");
       out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
+      switch (i){
+        case 0:
+          out.println("<td align=center>"+" <a href=\"/admin/butdown\">下架</a>"+"</td");
+          break;
+        case 1:
+          out.println("<td align=center>"+" <a href=\"/admin/butdown1\">下架</a>"+"</td");
+          break;
+        case 2:
+          out.println("<td align=center>"+" <a href=\"/admin/butdown2\">下架</a>"+"</td");
+          break;
+        case 3:
+          out.println("<td align=center>"+" <a href=\"/admin/butdown3\">下架</a>"+"</td");
+          break;
+        case 4:
+          out.println("<td align=center>"+" <a href=\"/admin/butdown4\">下架</a>"+"</td");
+          break;
+        case 5:
+          out.println("<td align=center>"+" <a href=\"/admin/butdown5\">下架</a>"+"</td");
+          break;
+      }
       out.println("</tr>");
     }
   %>
 </table></center>
 下架商品
-<form action="/admin/delete1" method="post">
-  id <input type="text" name="id"><br>
-  name <input type="text" name="name"><br>
-  <input type="submit" name="submit" value="点击下架该商品"><br>
-</form>
+<div class="form-group">
+  <form action="/admin/delete1" method="post">
+    id <input type="text" name="id"><br>
+    name <input type="text" name="name"><br>
+    <input type="submit" name="submit" value="点击下架该商品"><br>
+  </form>
+</div>
+
 修改商品信息
-<form action="/admin/update1" method="post">
-  id <input type="text" name="id"><br>
-  name <input type="text" name="name"><br>
-  price <input type="text" name="price"><br>
-  num <input type="text" name="num"><br>
-  status(1为正常出售) <input type="text" name="status"><br>
-  <input type="submit" name="submit" value="点击修改商品信息"><br>
-</form>
-<a href="/admin/back5">返回</a>
+<div class="form-group">
+  <form action="/admin/update1" method="post">
+    id <input type="text" name="id"><br>
+    name <input type="text" name="name"><br>
+    price <input type="text" name="price"><br>
+    num <input type="text" name="num"><br>
+    status(1为正常出售) <input type="text" name="status"><br>
+    <input type="submit" name="submit" value="点击修改商品信息"><br>
+  </form>
+</div>
 </body>
 </html>

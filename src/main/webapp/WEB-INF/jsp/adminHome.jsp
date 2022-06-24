@@ -13,6 +13,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
     <title>管理员页面</title>
 </head>
 <body link="#00ffff" alink="gray" vlink="black">

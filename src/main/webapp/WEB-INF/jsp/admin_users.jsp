@@ -10,9 +10,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link type="text/css" rel="stylesheet" href="/css/design.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
     <title>用户管理</title>
 </head>
 <body>
@@ -37,6 +40,26 @@
             out.println("<td align=center>"+user1.get(i).getMobile()+"</td>");
             out.println("<td align=center>"+user1.get(i).getEmail()+"</td>");
             out.println("<td align=center>"+user1.get(i).getType()+"</td>");
+            switch (i){
+                case 0:
+                    out.println("<td align=center>"+" <a href=\"/admin/buttondelete\">删除</a>"+"</td");
+                    break;
+                case 1:
+                    out.println("<td align=center>"+" <a href=\"/admin/buttondelete1\">删除</a>"+"</td");
+                    break;
+                case 2:
+                    out.println("<td align=center>"+" <a href=\"/admin/buttondelete2\">删除</a>"+"</td");
+                    break;
+                case 3:
+                    out.println("<td align=center>"+" <a href=\"/admin/buttondelete3\">删除</a>"+"</td");
+                    break;
+                case 4:
+                    out.println("<td align=center>"+" <a href=\"/admin/buttondelete4\">删除</a>"+"</td");
+                    break;
+                case 5:
+                    out.println("<td align=center>"+" <a href=\"/admin/buttondelete5\">删除</a>"+"</td");
+                    break;
+            }
             out.println("</tr>");
         }
     %>

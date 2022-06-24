@@ -9,28 +9,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="static/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <script src="static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
     <title>用户登录</title>
     <link type="text/css" rel="stylesheet" href="/css/design.css">
+    <link type="text/css" rel="stylesheet" href="/css/regist.css">
 </head>
 <body>
-<div>
-    <center><h1>欢迎来到佳运商品系统!</h1></center>
-    <marquee bgcolor="gray" behavior="scroll">
-        <font color="white" size="+1">欢迎来到佳运商品系统!</font>
-    </marquee>
+
+
+<div class="rg_layout">
+    <div class="rg_left">
+        <p>用户登录</p>
+        <p>USER LOGIN</p>
+    </div>
+    <div class="rg_center">
+        <div class="rg_form">
+            <form action="/users/login" method="post">
+                <tr>
+                    <td class="td_left"><label>用户名:</label></td>
+                    <td class="td_right"><input type="text" name="userName" id="userName" placeholder="请输入用户名"></td>
+                </tr><br>
+                <br>
+                <tr>
+                    <td class="td_left"><label>密  码:</label></td>
+                    <td class="td_right"><input type="text" name="password" id="password" placeholder="请输入密码"></td>
+                </tr><br>
+                <br>
+                <td colspan="2" align="center" >  <input type="submit" name="submit" id="submit" value="登录"> </td>
+            </form>
+        </div>
+    </div>
+    <div class="rg_right">
+        <p>没有账号?<a href="#">立即注册</a></p>
+    </div>
 </div>
-<center><h2><i>用户登录</i></h2></center>
-<center><div id="box">
-<center><form action="/users/login" method="post">
-    login_name <input name="userName" placeholder="请输入登录名" ><br>
-    password <input name="password" type="password" placeholder="请输入登录密码"><br>
-    <input type="submit" value="登录">&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="取消">
-</form>
-</center>
-</div>
-</center>
+
 </body>
 </html>

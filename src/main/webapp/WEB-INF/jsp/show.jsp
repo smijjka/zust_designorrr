@@ -55,6 +55,7 @@
             out.println("<td align=center>"+goods.get(i).getDown_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getCreate_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
+
             out.println("</tr>");
         }
     %>

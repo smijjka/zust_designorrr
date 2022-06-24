@@ -15,33 +15,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
     <title>订单管理页面</title>
 </head>
 <body>
-<center><table border="1">
+
+<center><h3>订单表</h3></center>
+<center><table border="1" class="table-hover" bgcolor="white">
     <tr>
-        <th width="100">id</th>
-        <th width="100">goods_id</th>
-        <th width="100">buyer_id</th>
-        <th width="100">seller_id</th>
-        <th width="100">price</th>
-        <th width="100">order_time</th>
-        <th width="100">submit_time</th>
-        <th width="100">amount</th>
-        <th width="100">status</th>
+        <th width="100">ID</th>
+        <th width="100">名称</th>
+        <th width="100">种类</th>
+        <th width="100">商户</th>
+        <th width="100">价格</th>
+        <th width="100">数量</th>
+        <th width="100">上架时间</th>
+        <th width="100">下架时间</th>
+        <th width="100">创建时间</th>
+        <th width="100">状态</th>
     </tr>
     <%
-        List<T_order> goods= (List<T_order>) request.getSession().getAttribute("t_order");
+        List<Goods> goods= (List<Goods>) request.getSession().getAttribute("goods");
         for (int i=0;i<goods.size();i++){
             out.println("<tr>");
             out.println("<td align=center>"+goods.get(i).getId()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getGoods_id()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getBuyer_id()+"</td>");
+            out.println("<td align=center>"+goods.get(i).getName()+"</td>");
+            out.println("<td align=center>"+goods.get(i).getCategory()+"</td>");
             out.println("<td align=center>"+goods.get(i).getSell_id()+"</td>");
             out.println("<td align=center>"+goods.get(i).getPrice()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getOrder_time()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getSubmit_time()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getAmount()+"</td>");
+            out.println("<td align=center>"+goods.get(i).getNum()+"</td>");
+            out.println("<td align=center>"+goods.get(i).getUp_time()+"</td>");
+            out.println("<td align=center>"+goods.get(i).getDown_time()+"</td>");
+            out.println("<td align=center>"+goods.get(i).getCreate_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
             out.println("</tr>");
         }

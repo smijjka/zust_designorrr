@@ -13,6 +13,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/design.css">
+    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/card.css">
+    <script src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
     <title>商品管理页面</title>
 </head>
 <body>
@@ -30,6 +39,7 @@
         <th width="100">down_time</th>
         <th width="100">create_time</th>
         <th width="100">status</th>
+        <th width="100">操作</th>
     </tr>
     <%
         List<Goods> goods= (List<Goods>) request.getSession().getAttribute("goods");
@@ -45,37 +55,123 @@
             out.println("<td align=center>"+goods.get(i).getDown_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getCreate_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
+            switch (i){
+                case 0:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown\">下架</a>"+"</td");
+                    break;
+                case 1:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown1\">下架</a>"+"</td");
+                    break;
+                case 2:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown2\">下架</a>"+"</td");
+                    break;
+                case 3:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown3\">下架</a>"+"</td");
+                    break;
+                case 4:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown4\">下架</a>"+"</td");
+                    break;
+                case 5:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown5\">下架</a>"+"</td");
+                    break;
+            }
             out.println("</tr>");
         }
     %>
 </table></center>
-<h1>以下为上架清单</h1>
-<center><form action="/seller/up_sho" method="post">
-    id <input type="text" name="id"><br>
-    name <input type="text" name="name"><br>
-    category <input type="text" name="category"><br>
-    price <input type="text" name="price"><br>
-    num <input type="text" name="num"><br>
-    status(1为正常出售) <input type="text" name="status"><br>
-    <input type="submit" name="submit" value="点击上架"><br>
-</form></center>
-<h1>以下为下架清单</h1>
-<center><form action="/seller/down_sho" method="post">
-    id <input type="text" name="id"><br>
-    name <input type="text" name="name"><br>
-    <input type="submit" name="submit" value="点击下架"><br>
-</form></center>
-<h1>以下为修改商品清单</h1>
-<center><form action="/seller/update_sho" method="post">
-    id <input type="text" name="id"><br>
-    请输入要修改的内容：
-    name <input type="text" name="name"><br>
-    category <input type="text" name="category"><br>
-    price <input type="text" name="price"><br>
-    num <input type="text" name="num"><br>
-    status(1为正常出售) <input type="text" name="status"><br>
-    <input type="submit" name="submit" value="点击修改"><br>
-</form></center>
+<div class="father">
+    <div class="son">
+        <div class="container">
+            <!-- 堆叠表单 -->
+            <p>上架清单</p>
+            <form class="col-md-3" action="/seller/up_sho" method="post">
+                <!-- 输入框 -->
+                <div class="form-group">
+                    <label for="id">ID：</label>
+                    <input type="text" class="form-control" name="id" id="id">
+                </div>
+                <div class="form-group">
+                    <label for="name">商品名称：</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="category">种类：</label>
+                    <input type="text" class="form-control" id="category" name="category">
+                </div>
+                <div class="form-group">
+                    <label for="price">价格：</label>
+                    <input type="text" class="form-control" id="price" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="num">数量：</label>
+                    <input type="text" class="form-control" id="num" name="num">
+                </div>
+                <div class="form-group">
+                    <label for="status">状态(1为正常出售)：</label>
+                    <input type="text" class="form-control" id="status" name="status">
+                </div>
+                <input type="submit" name="submit" class="btn btn-info" value="点击上架" ></input>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="son2">
+        <div class="container">
+            <!-- 堆叠表单 -->
+            <p>下架清单</p>
+            <form class="col-md-3" action="/seller/down_sho" method="post">
+                <!-- 输入框 -->
+                <div class="form-group">
+                    <label for="id1">ID：</label>
+                    <input type="text" class="form-control" name="id" id="id1">
+                </div>
+                <div class="form-group">
+                    <label for="name1">商品名称：</label>
+                    <input type="text" class="form-control" id="name1" name="name">
+                </div>
+                <input type="submit" name="submit" class="btn btn-info" value="点击下架" ></input>
+            </form>
+        </div>
+    </div>
+
+    <div class="son1">
+        <div class="container">
+            <!-- 堆叠表单 -->
+            <p>修改商品清单</p>
+            <form class="col-md-3" action="/seller/update_sho" method="post">
+                <!-- 输入框 -->
+                <div class="form-group">
+                    <label for="id2">ID：</label>
+                    <input type="text" class="form-control" name="id" id="id2">
+                </div>
+                <div class="form-group">
+                    <label for="name2">商品名称：</label>
+                    <input type="text" class="form-control" id="name2" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="category2">种类：</label>
+                    <input type="text" class="form-control" id="category2" name="category">
+                </div>
+                <div class="form-group">
+                    <label for="price2">价格：</label>
+                    <input type="text" class="form-control" id="price2" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="num2">数量：</label>
+                    <input type="text" class="form-control" id="num2" name="num">
+                </div>
+                <div class="form-group">
+                    <label for="status2">状态(1为正常出售)：</label>
+                    <input type="text" class="form-control" id="status2" name="status">
+                </div>
+                <input type="submit" name="submit" class="btn btn-info" value="点击修改" ></input>
+            </form>
+        </div>
+    </div>
+
+
+</div>
 <a href="/seller/back">返回</a>
 </body>
 </html>

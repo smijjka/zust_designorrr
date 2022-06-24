@@ -15,20 +15,18 @@
     <meta charset="UTF-8">
     <title>商户首页</title>
     <link type="text/css" rel="stylesheet" href="/css/design.css">
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
 </head>
 <body link="#00ffff" alink="gray" vlink="black">
 <h1 align="center">seller home</h1>
-<h2 align="center">欢迎进入佳运商品系统!</h2>
-
-    <div><%
-        UserVo user= (UserVo) request.getSession().getAttribute("user");
-    %>
-    </div>
-    <p align="center">欢迎商户<%=user.getLoginName()%>来到商户首页！</p>
-
-
+<div><%
+    UserVo user= (UserVo) request.getSession().getAttribute("user");
+%>
+</div>
+<p align="center">欢迎商户<%=user.getLoginName()%>来到商户首页！</p>
 <div>
-    <table width="80%" border="1" align="center" cellpadding="8" cellspacing="0">
+    <table width="80%" border="1" align="center" class="table-hover" bgcolor="white">
         <caption><%=user.getLoginName()%>商户信息</caption>
         <tr>
             <th rowspan="2" align="center"><img src="/img/头像1.png" height="300" width="300"></img></th>
@@ -58,7 +56,6 @@
 
         <tr>
             <td colspan="5" align="center"><a href="/seller/selljsp">点击进入商品管理页面</a></td>
-            <td colspan="5" align="center"><a href="/seller/selljs">点击进入商品管理页面</a></td>
         </tr>
     </table>
 </div>
