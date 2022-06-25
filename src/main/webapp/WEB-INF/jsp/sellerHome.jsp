@@ -12,9 +12,13 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="/css/others.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>商户首页</title>
-    <link type="text/css" rel="stylesheet" href="/css/design.css">
     <%@include file="header.jsp"%>
     <%@include file="footer.jsp"%>
 </head>
@@ -26,7 +30,7 @@
 </div>
 <p align="center">欢迎商户<%=user.getLoginName()%>来到商户首页！</p>
 <div>
-    <table width="80%" border="1" align="center" class="table-hover" bgcolor="white">
+    <table  border="1" align="center" class="table-condensed" width="80%" bgcolor="white">
         <caption><%=user.getLoginName()%>商户信息</caption>
         <tr>
             <th rowspan="2" align="center"><img src="/img/头像1.png" height="300" width="300"></img></th>

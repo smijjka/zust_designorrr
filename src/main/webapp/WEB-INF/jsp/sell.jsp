@@ -14,31 +14,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="/css/design.css">
-    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="/css/others.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/card.css">
-    <script src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <%@include file="header.jsp"%>
     <%@include file="footer.jsp"%>
     <title>商品管理页面</title>
 </head>
 <body>
-
-<center><table border="1">
-    <caption>商品列表</caption>
+<div class="whitebox">
+<a href="/seller/back"><h4>《--返回</h4> </a>
+<center><table border="1" class="table-hover" bgcolor="white">
+    <h3>商品列表</h3>
     <tr>
-        <th width="100">id</th>
-        <th width="100">name</th>
-        <th width="100">category</th>
-        <th width="100">seller_id</th>
-        <th width="100">price</th>
-        <th width="100">num</th>
-        <th width="100">up_time</th>
-        <th width="100">down_time</th>
-        <th width="100">create_time</th>
-        <th width="100">status</th>
+        <th width="100">ID</th>
+        <th width="100">名称</th>
+        <th width="100">种类</th>
+        <th width="100">商户</th>
+        <th width="100">价格</th>
+        <th width="100">数量</th>
+        <th width="100">上架时间</th>
+        <th width="100">下架时间</th>
+        <th width="100">创建时间</th>
+        <th width="100">状态</th>
         <th width="100">操作</th>
     </tr>
     <%
@@ -57,7 +58,7 @@
             out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
             switch (i){
                 case 0:
-                    out.println("<td align=center>"+" <a href=\"/seller/butdown\">下架</a>"+"</td");
+                    out.println("<td align=center>"+" <a  href=\"/seller/butdown\">下架</a>"+"</td");
                     break;
                 case 1:
                     out.println("<td align=center>"+" <a href=\"/seller/butdown1\">下架</a>"+"</td");
@@ -74,6 +75,54 @@
                 case 5:
                     out.println("<td align=center>"+" <a href=\"/seller/butdown5\">下架</a>"+"</td");
                     break;
+                case 6:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown6\">下架</a>"+"</td");
+                    break;
+                case 7:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown7\">下架</a>"+"</td");
+                    break;
+                case 8:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown8\">下架</a>"+"</td");
+                    break;
+                case 9:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown9\">下架</a>"+"</td");
+                    break;
+                case 10:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown10\">下架</a>"+"</td");
+                    break;
+                case 11:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown11\">下架</a>"+"</td");
+                    break;
+                case 12:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown12\">下架</a>"+"</td");
+                    break;
+                    case 13:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown13\">下架</a>"+"</td");
+                    break;
+                    case 14:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown14\">下架</a>"+"</td");
+                    break;
+                    case 15:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown15\">下架</a>"+"</td");
+                    break;
+                case 16:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown16\">下架</a>"+"</td");
+                    break;
+                case 17:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown17\">下架</a>"+"</td");
+                    break;
+                case 18:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown18\">下架</a>"+"</td");
+                    break;
+                case 19:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown19\">下架</a>"+"</td");
+                    break;
+                case 20:
+                    out.println("<td align=center>"+" <a href=\"/seller/butdown20\">下架</a>"+"</td");
+                    break;
+
+
+
             }
             out.println("</tr>");
         }
@@ -170,8 +219,7 @@
         </div>
     </div>
 
-
 </div>
-<a href="/seller/back">返回</a>
+</div>
 </body>
 </html>

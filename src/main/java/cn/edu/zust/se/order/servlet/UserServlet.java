@@ -40,7 +40,13 @@ public class UserServlet extends BaseServlet {
             else
                 doRegister(req,res);
         }
+        if("home".equals(methodName)){
+            doHome(req,res);
+        }
 
+    }
+    public void doHome(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        req.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(req,res);
     }
     private void doLoginPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req,res);

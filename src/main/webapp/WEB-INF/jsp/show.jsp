@@ -21,25 +21,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link type="text/css" rel="stylesheet" href="/css/design.css">
+    <link type="text/css" rel="stylesheet" href="/css/others.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
     <title>商品清单</title>
 </head>
 <body>
-<center><table border="1">
+<a href="/buyer/back"><h4>《--返回</h4></a>
+<center><h3>商品清单</h3></center>
+<center><table border="1" class="table-hover" bgcolor="white">
     <tr>
-        <th width="100">id</th>
-        <th width="100">name</th>
-        <th width="100">category</th>
-        <th width="100">seller_id</th>
-        <th width="100">price</th>
-        <th width="100">num</th>
-        <th width="100">up_time</th>
-        <th width="100">down_time</th>
-        <th width="100">create_time</th>
-        <th width="100">status</th>
+        <th width="100">ID</th>
+        <th width="100">名称</th>
+        <th width="100">种类</th>
+        <th width="100">商户</th>
+        <th width="100">价格</th>
+        <th width="100">数量</th>
+        <th width="100">上架时间</th>
+        <th width="100">下架时间</th>
+        <th width="100">创建时间</th>
+        <th width="100">状态</th>
     </tr>
     <%
         List<Goods> goods= (List<Goods>) request.getSession().getAttribute("goods");
@@ -60,6 +68,6 @@
         }
     %>
 </table></center>
-<a href="/buyer/back">点击返回</a>
+
 </body>
 </html>

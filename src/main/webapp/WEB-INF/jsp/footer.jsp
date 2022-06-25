@@ -13,10 +13,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/bootstrap-3.4.1-dist/css/bootstrap.css">
-    <script src="/static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+</head>
+
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
     <div class="container">

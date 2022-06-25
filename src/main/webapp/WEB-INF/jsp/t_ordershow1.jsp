@@ -14,20 +14,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>购物车页面</title>
-    <script type="text/javascript" src="/js/design.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/others.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <%@include file="header.jsp"%>
+    <%@include file="footer.jsp"%>
 </head>
 <body>
-<center><table border="1">
+<a href="/admin/back2"><h4>《--返回</h4></a><br>
+<center><h3>购物车</h3></center>
+<center><table border="1" class="table-hover" bgcolor="white">
     <tr>
-        <th width="100">id</th>
-        <th width="100">goods_id</th>
-        <th width="100">buyer_id</th>
-        <th width="100">seller_id</th>
-        <th width="100">price</th>
-        <th width="100">order_time</th>
-        <th width="100">submit_time</th>
-        <th width="100">amount</th>
-        <th width="100">status</th>
+        <th width="100">ID</th>
+        <th width="100">商品ID</th>
+        <th width="100">买家ID</th>
+        <th width="100">商户ID</th>
+        <th width="100">价格</th>
+        <th width="100">下单时间</th>
+        <th width="100">提交时间</th>
+        <th width="100">数量</th>
+        <th width="100">状态</th>
+        <th width="100">操作</th>
     </tr>
     <%
         List<T_order> goods= (List<T_order>) request.getSession().getAttribute("t_order");
@@ -42,29 +51,111 @@
             out.println("<td align=center>"+goods.get(i).getSubmit_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getAmount()+"</td>");
             out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
+            switch (i){
+                case 0:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate\">删除</a>"+"</td");
+                    break;
+                case 1:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate1\">删除</a>"+"</td");
+                    break;
+                case 2:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate2\">删除</a>"+"</td");
+                    break;
+                case 3:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate3\">删除</a>"+"</td");
+                    break;
+                case 4:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate4\">删除</a>"+"</td");
+                    break;
+                case 5:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate5\">删除</a>"+"</td");
+                    break;
+                case 6:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate6\">删除</a>"+"</td");
+                    break;
+                case 7:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate7\">删除</a>"+"</td");
+                    break;
+                case 8:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate8\">删除</a>"+"</td");
+                    break;
+                case 9:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate9\">删除</a>"+"</td");
+                    break;
+                case 10:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate10\">删除</a>"+"</td");
+                    break;
+                case 11:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate11\">删除</a>"+"</td");
+                    break;
+                case 12:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate12\">删除</a>"+"</td");
+                    break;
+                case 13:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate13\">删除</a>"+"</td");
+                    break;
+                case 14:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate14\">删除</a>"+"</td");
+                    break;
+                case 15:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate15\">删除</a>"+"</td");
+                    break;
+                case 16:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate16\">删除</a>"+"</td");
+                    break;
+                case 17:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate17\">删除</a>"+"</td");
+                    break;
+                case 18:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate18\">删除</a>"+"</td");
+                    break;
+                case 19:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate19\">删除</a>"+"</td");
+                    break;
+                case 20:
+                    out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate20\">删除</a>"+"</td");
+                    break;
+            }
+
             out.println("</tr>");
         }
     %>
 </table></center>
-<table border="1">
-    <tr>
-        <th>修改商品数量</th>
-        <th>购买</th>
-    </tr>
-    <tr>
-        <td colspan="2"><form action="/admin/update3">
-            id <input type="text" name="id"><br>
-            amount <input type="text" name="amount"><br>
-            <input type="submit" name="submit" value="修改"><br></form></td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            付款购买
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2"><a href="/admin/money1">购买</a> </td>
-    </tr>
-</table>
+<br>
+<br>
+<br>
+<center><h3>商品修改界面</h3></center>
+<center>
+    <table border="1" class="table-condensed">
+        <tr>
+            <th><center>修改商品数量</center></th>
+            <th><center>删除商品</center></th>
+        </tr>
+        <tr>
+            <td ><form action="/buyer/update">
+                ID:<input type="text" name="id"><br>
+                数&emsp;量:<input type="text" name="amount"><br>
+                <center><input type="submit" name="submit" class="btn btn-info" value="修改"><br></center></form></td>
+            <td>
+                <form action="/buyer/delete_sho" method="post">
+                    商品ID:<input type="text" name="id"><br>
+                    商户ID:<input type="text" name="seller_id"><br>
+                    买家ID:<input type="text" name="buyer_id"><br>
+                    <center><input type="submit" name="submit" class="btn btn-info" value="点击删除商品"></center>
+                </form></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <center>付款购买</center>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><center><a href="/buyer/money">购买</a> </center></td>
+        </tr>
+    </table>
+</center>
+
+</form>
 </body>
 </html>

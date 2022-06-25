@@ -13,10 +13,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="static/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="static/bootstrap-3.4.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/bootstrap-3.4.1-dist/css/bootstrap.css">
-    <script src="static/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <%@include file="header.jsp"%>
     <%@include file="footer.jsp"%>
     <title>用户登录</title>
@@ -40,8 +40,8 @@
                 </tr><br>
                 <br>
                 <tr>
-                    <td class="td_left"><label>密  码:</label></td>
-                    <td class="td_right"><input type="text" name="password" id="password" placeholder="请输入密码"></td>
+                    <td class="td_left"><label>密&emsp;码:</label></td>
+                    <td class="td_right"><input type="password" name="password" id="password" placeholder="请输入密码"></td>
                 </tr><br>
                 <br>
                 <td colspan="2" align="center" >  <input type="submit" name="submit" id="submit" value="登录"> </td>
@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="rg_right">
-        <p>没有账号?<a href="#">立即注册</a></p>
+        <p>没有账号?<a href="/users/register">立即注册</a></p>
     </div>
 </div>
 

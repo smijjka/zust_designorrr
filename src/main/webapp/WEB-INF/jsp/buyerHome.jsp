@@ -10,7 +10,11 @@
 <html>
 <head>
     <title>用户首页</title>
-    <link rel="stylesheet" type="text/css" href="/css/design.css">
+    <link type="text/css" rel="stylesheet" href="/css/others.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <%@include file="header.jsp"%>
     <%@include file="footer.jsp"%>
 </head>
@@ -24,7 +28,7 @@
 
 
 <div >
-    <table  width="80%"  border="1" align="center" class="table-hover" bgcolor="white">
+    <table  width="80%"  border="1" align="center" class="table-condensed" bgcolor="white">
         <caption><%=user.getLoginName()%>用户信息</caption>
         <tr>
             <th rowspan="2" align="center"><img src="/img/头像2.jpeg" width="300" height="300"></img></th>
