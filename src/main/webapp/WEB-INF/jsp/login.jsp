@@ -8,24 +8,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
+<%@include file="header.jsp"%>
 <head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/layui/layui.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
     <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
-    <%@include file="header.jsp"%>
     <%@include file="footer.jsp"%>
     <title>用户登录</title>
     <link type="text/css" rel="stylesheet" href="/css/design.css">
     <link type="text/css" rel="stylesheet" href="/css/regist.css">
 </head>
 <body>
-
-
 <div class="rg_layout">
     <div class="rg_left">
         <p>用户登录</p>

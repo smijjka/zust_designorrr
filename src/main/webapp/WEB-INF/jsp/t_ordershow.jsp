@@ -1,5 +1,6 @@
 <%@ page import="cn.edu.zust.se.order.vo.T_order" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="cn.edu.zust.se.order.vo.UserVo" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
   Date: 2022/6/18
@@ -13,30 +14,95 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
-    <title>购物车页面</title>
-  <link type="text/css" rel="stylesheet" href="/css/others.css">
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="/layui/layui.js"></script>
+  <link rel="stylesheet" href="/layui/css/layui.css">
   <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
   <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
   <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
-  <%@include file="header.jsp"%>
-  <%@include file="footer.jsp"%>
+  <link rel="stylesheet" href="/css/prc.css">
+  <script src="/js/prc.js"></script>
+
+  <title>购物车页面</title>
+
+
+
 </head>
-<body>
-<a href="/buyer/back2"><h4>《--返回</h4></a>
-<center><h3>购物车</h3></center>
-<center><table border="1" class="table-hover" bgcolor="white">
-  <tr>
-    <th width="100">ID</th>
-    <th width="100">商品ID</th>
-    <th width="100">买家ID</th>
-    <th width="100">商户ID</th>
-    <th width="100">价格</th>
-    <th width="100">下单时间</th>
-    <th width="100">提交时间</th>
-    <th width="100">数量</th>
-    <th width="100">状态</th>
-    <th width="100">操作</th>
+
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin" >
+  <div class="layui-header">
+    <div class="layui-logo">浙江科技业务管理平台</div>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <%
+          UserVo user= (UserVo) request.getSession().getAttribute("user");
+        %>
+        欢迎光临，用户<%=user.getLoginName()%>
+      </li>
+      <li class="layui-nav-item"><a href="/users/login">安全退出</a></li>
+    </ul>
+  </div>
+
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧垂直导航区域-->
+      <ul class="layui-nav layui-nav-tree" lay-filter="test">
+        <li class="layui-nav-item">
+          <p>购物管理</p>
+          <dd>
+            <a href="/buyer/shoppingjsp" data-id="1" data-title="添加商品" data-url="index.php?&a=adminLogList"
+               class="site-demo-active" data-type="tabAdd"  >添加商品</a></dd>
+          </dd>
+          <dd>
+            <a href="/buyer/show" data-id="2" data-title="查看购物车" data-url="index.php?&a=adminLogList"
+               class="site-demo-active" data-type="tabAdd">查看购物车</a></dd>
+          </dd>
+          <dd><a href="/buyer/buy3" data-id="2" data-title="更新购物车" data-url="index.php?&a=adminLogList"
+                 class="site-demo-active" data-type="tabAdd">更新商品</a></dd>
+          <dd><a href="/buyer/showjsp" data-id="2" data-title="查看已上架商品" data-url="index.php?&a=adminLogList"
+                 class="site-demo-active" data-type="tabAdd">查看已上架商品</a></dd>
+          <dd><a href="/buyer/buy4" data-id="2" data-title="购买" data-url="index.php?&a=adminLogList"
+                 class="site-demo-active" data-type="tabAdd">购买</a></dd>
+          </dl>
+        </li>
+
+        <%-- <li class="layui-nav-item">
+             <a href="javascript:;">系统管理</a>
+             <dl class="layui-nav-child">
+                 <dd><a href="javascript:;">支付API设置</a></dd>
+                 <dd><a href="javascript:;">公告设置</a></dd>
+                 <dd><a href="javascript:;">控制台</a></dd>
+         </li>--%>
+      </ul>
+    </div>
+  </div>
+
+  <!--tab标签-->
+  <div class="layui-tab" lay-filter="demo" lay-allowclose="true" style="margin-left: 200px;">
+    <ul class="layui-tab-title"></ul>
+    <div class="layui-tab-content"></div>
+  </div>
+
+  <div class="layui-footer" style="text-align:center;">
+    <!-- 底部固定区域 -->
+    © sunway.tk 浙江科技业务管理平台
+  </div>
+</div>
+<div class="div">
+  <center><table border="1" class="table-hover" bgcolor="white" width="100%">
+  <tr style="background-color:gray">
+    <th width="130">ID</th>
+    <th width="130">商品ID</th>
+    <th width="130">买家ID</th>
+    <th width="130">商户ID</th>
+    <th width="130">价格</th>
+    <th width="220">下单时间</th>
+    <th width="220">提交时间</th>
+    <th width="130">数量</th>
+    <th width="130">状态</th>
+    <th width="40">操作</th>
   </tr>
   <%
     List<T_order> goods= (List<T_order>) request.getSession().getAttribute("t_order");
@@ -53,110 +119,41 @@
       out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
       switch (i){
         case 0:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 1:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate1\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate1\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 2:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate2\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate2\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 3:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate3\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate3\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 4:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate4\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate4\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 5:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate5\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate5\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 6:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate6\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate6\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 7:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate7\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate7\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 8:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate8\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate8\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
         case 9:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate9\">删除</a>"+"</td");
+          out.println("<td align=center>"+"<a onclick=\"success12()\" href=\"/buyer/buttonupdate9\" class=\"layui-btn layui-btn-sm layui-btn-danger\">删除</a>"+"</td");
           break;
-        case 10:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate10\">删除</a>"+"</td");
-          break;
-        case 11:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate11\">删除</a>"+"</td");
-          break;
-          case 12:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate12\">删除</a>"+"</td");
-          break;
-        case 13:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate13\">删除</a>"+"</td");
-          break;
-        case 14:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate14\">删除</a>"+"</td");
-          break;
-          case 15:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate15\">删除</a>"+"</td");
-          break;
-          case 16:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate16\">删除</a>"+"</td");
-          break;
-          case 17:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate17\">删除</a>"+"</td");
-          break;
-        case 18:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate18\">删除</a>"+"</td");
-          break;
-        case 19:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate19\">删除</a>"+"</td");
-          break;
-        case 20:
-          out.println("<td align=center>"+" <a href=\"/buyer/buttonupdate20\">删除</a>"+"</td");
-          break;
-
       }
 
       out.println("</tr>");
     }
   %>
 </table></center>
-<br>
-   <br>
-      <br>
-<center><h3>商品修改界面</h3></center>
-<center>
-<table border="1" class="table-condensed">
-  <tr>
-    <th><center>修改商品数量</center></th>
-    <th><center>删除商品</center></th>
-  </tr>
-  <tr>
-    <td ><form action="/buyer/update">
-        ID:<input type="text" name="id"><br>
-        数&emsp;量:<input type="text" name="amount"><br>
-      <center><input type="submit" name="submit" class="btn btn-info" value="修改"><br></center></form></td>
-    <td>
-      <form action="/buyer/delete_sho" method="post">
-        商品ID:<input type="text" name="id"><br>
-        商户ID:<input type="text" name="seller_id"><br>
-        买家ID:<input type="text" name="buyer_id"><br>
-        <center><input type="submit" name="submit" class="btn btn-info" value="点击删除商品"></center>
-      </form></td>
-  </tr>
-
-  <tr>
-    <td colspan="2">
-      <center>付款购买</center>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2"><center><a href="/buyer/money">购买</a> </center></td>
-  </tr>
-</table>
-</center>
-
-</form>
+</div>
 </body>
 </html>

@@ -1,11 +1,10 @@
-<%@ page import="cn.edu.zust.se.order.vo.Goods" %>
-<%@ page import="java.util.List" %>
 <%@ page import="cn.edu.zust.se.order.vo.T_order" %>
+<%@ page import="java.util.List" %>
 <%@ page import="cn.edu.zust.se.order.vo.UserVo" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2022/6/4
-  Time: 16:33
+  Date: 2022/7/8
+  Time: 13:52
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -22,8 +21,6 @@
     <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
     <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
-
-
     <link rel="stylesheet" href="/css/prc.css">
     <script src="/js/prc.js"></script>
 
@@ -68,7 +65,6 @@
                         <dd><a href="/admin/show11">查看用户</a></dd>
                         <dd><a href="/admin/shoshow">查看商品</a></dd>
                         <dd><a href="/admin/itemshow">查看订单</a></dd>
-                        <dd><a href="/admin/report">查看举报信息</a></dd>
                     </dl>
                 </li>
                 <%-- <li class="layui-nav-item">
@@ -96,13 +92,12 @@
         <th width="130">ID</th>
         <th width="130">商品ID</th>
         <th width="130">买家ID</th>
-        <th width="130">商户ID</th>
-        <th width="130">价格</th>
+        <th width="140">商户ID</th>
+        <th width="140">价格</th>
         <th width="220">下单时间</th>
         <th width="220">提交时间</th>
-        <th width="100">数量</th>
-        <th width="100">状态</th>
-        <th width="100" colspan="2">操作</th>
+        <th width="120">数量</th>
+        <th width="120">状态</th>
     </tr>
     <%
         List<T_order> t_order= (List<T_order>) request.getSession().getAttribute("t_order");
@@ -117,48 +112,17 @@
             out.println("<td align=center>"+t_order.get(i).getSubmit_time()+"</td>");
             out.println("<td align=center>"+t_order.get(i).getAmount()+"</td>");
             out.println("<td align=center>"+t_order.get(i).getStatus()+"</td>");
-            switch (i){
-                case 0:  out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                break;
-                case 2:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate2\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 3:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate3\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 4:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate4\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 5:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate5\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 6:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate6\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 7:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate7\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 8:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate8\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 9:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate9\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 10:out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate10\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-                case 1:
-                    out.println("<td >"+" <a  onclick=\"success3()\"  class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/admin/buttonupdate1\">删除</a>"+"<td align=center>"+"<button onclick=\"add2()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">修改订单</a>"+"</td");
-                    break;
-
-            }
             out.println("</tr>");
         }
 
     %>
 </table>
-    </center>
-
-
-                <td ><form action="/admin/order_update"  class="col-md-3" id="create_table_from"  method="post" lay-filter="create_table_from" style="display: none;">
-                    I&emsp;D&emsp;:<input type="text" name="id"><br>
-                    价&emsp;格:<input type="text" name="price"><br>
-                    数&emsp;量:<input type="text" name="amount"><br>
-                    状&emsp;态:<input type="text" name="status"><br>
-                    <center><input type="submit" name="submit" class="btn btn-info" onclick="success4()" value="修改订单"><br></center></form></td>
-
-
-</div>
+</center>
+    <span id="span">
+<form action="/admin/search6" method="post">
+订单ID <input id="id" type="text"  name="id"><input class="layui-btn layui-btn-sm" class="layui-btn layui-btn-warm" onclick="success14()" type="submit" value="查找">
+</form>
+</span>
+   </div>
 </body>
 </html>

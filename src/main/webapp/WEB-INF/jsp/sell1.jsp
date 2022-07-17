@@ -1,3 +1,4 @@
+<%@ taglib prefix="display" uri="http://jakarta.apache.org/taglibs/standard/permittedTaglibs" %>
 <%@ page import="cn.edu.zust.se.order.vo.Goods" %>
 <%@ page import="java.util.List" %>
 <%@ page import="cn.edu.zust.se.order.vo.UserVo" %><%--
@@ -24,7 +25,6 @@
     <link rel="stylesheet" href="/css/prc.css">
     <script src="/js/prc.js"></script>
 
-    <title>商品管理页面</title>
 
 </head>
 <body class="layui-layout-body">
@@ -88,8 +88,9 @@
 
 
 <div class="div"><center><table border="1" class="table-hover" bgcolor="white" width="100%">
+
     <tr style="background-color:gray">
-        <th style="background-color: #8c8c8c" width="100">ID</th>
+        <th  width="100">ID</th>
         <th width="100">名称</th>
         <th width="120">种类</th>
         <th width="120">商户</th>
@@ -99,52 +100,63 @@
         <th width="200">下架时间</th>
         <th width="200">创建时间</th>
         <th width="150">状态</th>
-        <th width="40">操作</th>
     </tr>
     <%
         List<Goods> goods= (List<Goods>) request.getSession().getAttribute("goods");
-        for (int i=0;i<goods.size();i++){
+        for (int i=0;i<goods.size();i++) {
             out.println("<tr>");
-            out.println("<td align=center>"+goods.get(i).getId()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getName()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getCategory()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getSell_id()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getPrice()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getNum()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getUp_time()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getDown_time()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getCreate_time()+"</td>");
-            out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
-            switch (i){
-                case 0:
-                    out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 1: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown1\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 10:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown10\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 9: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown9\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 8: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown8\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 7: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown7\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 6: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown6\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 5:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown5\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 4:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown4\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 3: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown3\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 2: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown2\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-
-            }
+            out.println("<td align=center>" + goods.get(i).getId() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getName() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getCategory() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getSell_id() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getPrice() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getNum() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getUp_time() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getDown_time() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getCreate_time() + "</td>");
+            out.println("<td align=center>" + goods.get(i).getStatus() + "</td>");
             out.println("</tr>");
         }
     %>
-</table></center></div>
+</table></center>
+    <div id="location">
+<%
+   // out.println("<td align=center>"+"<button onclick=\"add()\" class=\"layui-btn layui-btn-sm layui-btn-danger\" href=\"/seller/butup\">上架</a>"+"</td");
+    out.println("<td align=center>"+"<button onclick=\"add1()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">上架</a>"+"</td");
+%>
+    </div></div>
+
+            <!-- 堆叠表单 -->
+
+            <form class="col-md-3" id="create_table_from" action="/seller/up_sho" method="post" lay-filter="create_table_from" style="display: none;">
+                <!-- 输入框 -->
+                <div class="form-group">
+                    <label for="id">ID：</label>
+                    <input type="text" class="form-control1" name="id" id="id">
+                </div>
+                <div class="form-group">
+                    <label >商品名称：</label>
+                    <input type="text" class="form-control1" id="name" name="name" autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="category">种类：</label>
+                    <input type="text" class="form-control1" id="category" name="category">
+                </div>
+                <div class="form-group">
+                    <label for="price">价格：</label>
+                    <input type="text" class="form-control1" id="price" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="num">数量：</label>
+                    <input type="text" class="form-control1" id="num" name="num">
+                </div>
+                <div class="form-group">
+                    <label for="status">状态(1为正常出售)：</label>
+                    <input type="text" class="form-control1" id="status" name="status">
+                </div>
+                <input type="submit" name="submit" class="btn btn-info" value="点击上架" onclick="success1()">
+            </form>
+
 
 </body>
 </html>

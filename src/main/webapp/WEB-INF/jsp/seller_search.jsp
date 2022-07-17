@@ -3,8 +3,8 @@
 <%@ page import="cn.edu.zust.se.order.vo.UserVo" %><%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2022/5/31
-  Time: 18:04
+  Date: 2022/7/2
+  Time: 13:13
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,8 +13,6 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="/layui/layui.js"></script>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap-theme.css">
@@ -24,10 +22,19 @@
     <link rel="stylesheet" href="/css/prc.css">
     <script src="/js/prc.js"></script>
 
-    <title>商品管理页面</title>
-
+    <meta charset="UTF-8">
 </head>
 <body class="layui-layout-body">
+<span id="span11">
+<form action="/seller/search" method="post">
+商品ID <input id="id" type="text"  name="id"><input class="layui-btn layui-btn-sm" onclick="success10()" class="layui-btn layui-btn-warm" type="submit" value="查找">
+</form>
+</span>
+<span id="span111">
+    <form action="/seller/search1" method="post">
+        商品名称 <input id="name" type="text"  name="name"><input class="layui-btn layui-btn-sm" onclick="success10()" class="layui-btn layui-btn-warm" type="submit" value="查找">
+    </form>
+</span>
 <div class="layui-layout layui-layout-admin" >
     <div class="layui-header">
         <div class="layui-logo">浙江科技业务管理平台</div>
@@ -84,10 +91,7 @@
         © sunway.tk 浙江科技业务管理平台
     </div>
 </div>
-
-
-
-<div class="div"><center><table border="1" class="table-hover" bgcolor="white" width="100%">
+<div class="div1"><center><table border="1" class="table-hover" bgcolor="white" width="100%">
     <tr style="background-color:gray">
         <th style="background-color: #8c8c8c" width="100">ID</th>
         <th width="100">名称</th>
@@ -99,10 +103,9 @@
         <th width="200">下架时间</th>
         <th width="200">创建时间</th>
         <th width="150">状态</th>
-        <th width="40">操作</th>
     </tr>
     <%
-        List<Goods> goods= (List<Goods>) request.getSession().getAttribute("goods");
+        List<Goods> goods= (List<Goods>) request.getSession().getAttribute("t_goods");
         for (int i=0;i<goods.size();i++){
             out.println("<tr>");
             out.println("<td align=center>"+goods.get(i).getId()+"</td>");
@@ -115,36 +118,10 @@
             out.println("<td align=center>"+goods.get(i).getDown_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getCreate_time()+"</td>");
             out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
-            switch (i){
-                case 0:
-                    out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 1: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown1\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 10:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown10\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 9: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown9\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 8: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown8\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 7: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown7\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 6: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown6\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 5:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown5\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 4:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown4\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 3: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown3\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 2: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown2\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
 
-            }
             out.println("</tr>");
         }
     %>
 </table></center></div>
-
 </body>
 </html>

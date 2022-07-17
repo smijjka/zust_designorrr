@@ -1,5 +1,6 @@
 cn\edu\zust\se\order\vo\Goods.class
 cn\edu\zust\se\order\ShopBean.class
+cn\edu\zust\se\order\vo\Report.class
 cn\edu\zust\se\order\service\impl\UserServiceImpl.class
 cn\edu\zust\se\order\vo\T_order_item.class
 cn\edu\zust\se\order\util\DBUtil.class

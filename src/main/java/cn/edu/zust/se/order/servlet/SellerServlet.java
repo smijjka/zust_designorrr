@@ -31,19 +31,21 @@ public class SellerServlet extends BaseServlet {
         out.println("uri:"+uri.substring(index+1));
         out.println(req.getMethod());
         if("up_sho".equals(methodName)){
-                doup_sho(req,res);
+            doup_sho(req,res);
         }
-        if("back2".equals(methodName)){
-            doback2(req,res);
-        }
-        if("down_sho".equals(methodName)){
-            dodown_shoe(req,res);
-        }
+
+
         if("update_sho".equals(methodName)){
             doupdate_sho(req,res);
         }
         if("selljsp".equals(methodName)){
             doselljsp(req,res);
+        }
+        if("selljsp1".equals(methodName)){
+            doselljsp1(req,res);
+        }
+        if("selljsp2".equals(methodName)){
+            doselljsp2(req,res);
         }
         if("zhongzhuan".equals(methodName)){
             dozhongzhuan(req,res);
@@ -88,38 +90,21 @@ public class SellerServlet extends BaseServlet {
         if("butdown10".equals(methodName)){
             dobutdown10(req,res);
         }
-        if("butdown11".equals(methodName)){
-            dobutdown11(req,res);
+
+        if("search".equals(methodName)){
+            dosearch(req,res);
         }
-        if("butdown12".equals(methodName)){
-            dobutdown12(req,res);
+        if("search1".equals(methodName)){
+            dosearch1(req,res);
         }
-        if("butdown13".equals(methodName)){
-            dobutdown13(req,res);
+        if("butup".equals(methodName)){
+            doup_sho(req,res);
         }
-        if("butdown14".equals(methodName)){
-            dobutdown14(req,res);
-        }
-        if("butdown15".equals(methodName)){
-            dobutdown15(req,res);
-        }
-        if("butdown16".equals(methodName)){
-            dobutdown16(req,res);
-        }
-        if("butdown17".equals(methodName)){
-            dobutdown17(req,res);
-        }
-        if("butdown18".equals(methodName)){
-            dobutdown18(req,res);
-        }
-        if("butdown19".equals(methodName)){
-            dobutdown19(req,res);
-        }
-        if("butdown20".equals(methodName)){
-            dobutdown20(req,res);
+        if ("showjsp".equals(methodName)) {
+            doshow(req, res);
         }
     }
-    public void doback2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+    public void doshow(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> list=new ArrayList<>();
         try{
             String sql="select * from t_goods where status="+1+"";
@@ -132,409 +117,387 @@ public class SellerServlet extends BaseServlet {
             e.printStackTrace();
         }
         req.getSession().setAttribute("goods",list);
-        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
+        req.getRequestDispatcher("/WEB-INF/jsp/show.jsp").forward(req,res);
     }
+    public void dosearch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<Goods> list=new ArrayList<>();
+        try {
+            int id = Integer.parseInt(req.getParameter("id"));
+            ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
+            if (rs.next()){
+                Goods g=rs3User(rs);
+                list.add(g);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("t_goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/seller_search.jsp").forward(req,res);
+    }
+    public void dosearch1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<Goods> list=new ArrayList<>();
+        try {
+            String name = req.getParameter("name");
+            ResultSet rs=DBUtil.select("select * from t_goods where name='"+name+"'");
+            if (rs.next()){
+                Goods g=rs3User(rs);
+                list.add(g);
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("t_goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/seller_search.jsp").forward(req,res);
+    }
+
     public void dobutdown(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(0).getId();
         out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(1).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(2).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown3(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(3).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown4(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(4).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown5(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(5).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown6(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(6).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown7(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(7).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown8(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(8).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown9(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(9).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
     public void dobutdown10(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
+        List<Goods> list=new ArrayList<>();
         int id=goods.get(10).getId();
+        out.println(id);
         ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
         try {
             if (rs.next()){
                 DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
     }
-    public void dobutdown11(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(11).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void dobutdown12(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(12).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void dobutdown13(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(13).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void dobutdown14(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(14).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void dobutdown15(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(15).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void dobutdown16(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(16).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }public void dobutdown17(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(17).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }public void dobutdown18(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(18).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void dobutdown19(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(19).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void dobutdown20(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        List<Goods> goods= (List<Goods>) req.getSession().getAttribute("goods");
-        int id=goods.get(20).getId();
-        ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-        try {
-            if (rs.next()){
-                DBUtil.update("delete from t_goods where id="+id+"");
-                String str4="删除商品信息成功";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }else {
-                String str4="该商品不存在，请重新输入";
-                req.getSession().setAttribute("str4",str4);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan7.jsp").forward(req,res);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public void doup_sho(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<Goods> list=new ArrayList<>();
         try {
             int id = Integer.parseInt(req.getParameter("id"));
             String name = req.getParameter("name");
@@ -550,52 +513,34 @@ public class SellerServlet extends BaseServlet {
             String create_time = sdf.format(d);
             String up_time = create_time;
             String down_time="0001-1-1 0:00:00";
-            ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
-            if (rs.next()){
-                String str="已有该商品，请勿重复添加";
-                req.getSession().setAttribute("str",str);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan.jsp").forward(req,res);
-            }
-            else {
+            //ResultSet rs=DBUtil.select("select * from t_goods where id="+id+"");
                 String sql="insert into t_goods values("+id+",'"+name+"','"+category+"',"+sell_id+","+price+","+num+",'"+up_time+"','"+down_time+"','"+create_time+"',"+status+")";
                 DBUtil.update(sql);
-                out.println("数据插入成功");
-                String str="上架商品成功";
-                req.getSession().setAttribute("str",str);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan.jsp").forward(req,res);
-            }
+
         } catch (NumberFormatException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-    }
-    public void dodown_shoe(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-int id= Integer.parseInt(req.getParameter("id"));
-String name=req.getParameter("name");
-ResultSet rs=DBUtil.select("select * from t_goods where id="+id+" and name='"+name+"'");
+        ResultSet rst=DBUtil.select("select * from t_goods");
         try {
-            if (rs.next()){
-                Date d = new Date();// new Date()为获取当前系统时间
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//MM，HH，SSS要大写
-                //需要导入java.text.*包
-                String down_time = sdf.format(d);
-                int status=0;
-                String sql="update t_goods set down_time='"+down_time+"',status="+status+" where id="+id+" and name='"+name+"'";
-                DBUtil.update(sql);
-                String str="下架商品成功";
-                req.getSession().setAttribute("str",str);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan.jsp").forward(req,res);
-            }else{
-                String str="您输入的信息与已有商品信息不匹配！";
-                req.getSession().setAttribute("str",str);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan.jsp").forward(req,res);
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/sell1.jsp").forward(req,res);
     }
+
+
     public void doupdate_sho(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<Goods> list=new ArrayList<>();
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         String category = req.getParameter("category");
@@ -607,18 +552,27 @@ ResultSet rs=DBUtil.select("select * from t_goods where id="+id+" and name='"+na
             if (rs.next()){
                 String sql="update t_goods set name='"+name+"',category='"+category+"',price="+price+",num="+num+",status="+status+" where id="+id+"";
                 DBUtil.update(sql);
-                String str="更新商品信息成功";
-                req.getSession().setAttribute("str",str);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan.jsp").forward(req,res);
             }
-            else {
-                String str="输入信息错误";
-                req.getSession().setAttribute("str",str);
-                req.getRequestDispatcher("/WEB-INF/jsp/zhongzhuan.jsp").forward(req,res);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ResultSet rst=DBUtil.select("select * from t_goods");
+        try {
+            while (rst.next()){
+                Goods g=rs3User(rst);
+                list.add(g);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        req.getSession().setAttribute("goods",list);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/seller_update.jsp").forward(req,res);
     }
     public void doselljsp(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> list=new ArrayList<>();
@@ -634,6 +588,36 @@ ResultSet rs=DBUtil.select("select * from t_goods where id="+id+" and name='"+na
         }
         req.getSession().setAttribute("goods",list);
         req.getRequestDispatcher("/WEB-INF/jsp/sell.jsp").forward(req,res);
+    }
+    public void doselljsp1(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<Goods> list=new ArrayList<>();
+        try{
+            String sql="select * from t_goods where status="+1+"";
+            ResultSet rs=DBUtil.select(sql);
+            while (rs.next()){
+                Goods g=rs3User(rs);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        req.getRequestDispatcher("/WEB-INF/jsp/sell1.jsp").forward(req,res);
+    }
+    public void doselljsp2(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        List<Goods> list=new ArrayList<>();
+        try{
+            String sql="select * from t_goods where status="+1+"";
+            ResultSet rs=DBUtil.select(sql);
+            while (rs.next()){
+                Goods g=rs3User(rs);
+                list.add(g);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getSession().setAttribute("goods",list);
+        req.getRequestDispatcher("/WEB-INF/jsp/seller_update.jsp").forward(req,res);
     }
     public void dozhongzhuan(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         List<Goods> list=new ArrayList<>();

@@ -21,9 +21,8 @@
     <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.css">
     <script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+<script src="/js/prc.js"></script>
     <link rel="stylesheet" href="/css/prc.css">
-    <script src="/js/prc.js"></script>
-
     <title>商品管理页面</title>
 
 </head>
@@ -89,7 +88,7 @@
 
 <div class="div"><center><table border="1" class="table-hover" bgcolor="white" width="100%">
     <tr style="background-color:gray">
-        <th style="background-color: #8c8c8c" width="100">ID</th>
+        <th  width="100">ID</th>
         <th width="100">名称</th>
         <th width="120">种类</th>
         <th width="120">商户</th>
@@ -117,27 +116,17 @@
             out.println("<td align=center>"+goods.get(i).getStatus()+"</td>");
             switch (i){
                 case 0:
-                    out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 1: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown1\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 10:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown10\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 9: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown9\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 8: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown8\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 7: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown7\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 6: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown6\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 5:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown5\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 4:out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown4\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 3: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown3\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
-                    break;
-                case 2: out.println("<td align=center>"+"<a onclick=\"success2()\" href=\"/seller/butdown2\" class=\"layui-btn layui-btn-sm layui-btn-danger\">下架</a>"+"</td");
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                case 1:
+                    out.println("<td align=center>"+"<button onclick=\"add()\" class=\"layui-btn layui-btn-sm layui-btn-danger\">更新修改</a>"+"</td");
                     break;
 
             }
@@ -145,6 +134,40 @@
         }
     %>
 </table></center></div>
-
+<div class="father">
+    <div class="son">
+        <div class="container">
+            <!-- 堆叠表单 -->
+            <form class="col-md-3" action="/seller/update_sho" id="create_table_from"  method="post" lay-filter="create_table_from" style="display: none;">
+                <!-- 输入框 -->
+                <div class="form-group">
+                    <label for="id">ID：</label>
+                    <input type="text" class="form-control1" name="id" id="id">
+                </div>
+                <div class="form-group">
+                    <label for="name">商品名称：</label>
+                    <input type="text" class="form-control1" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="category">种类：</label>
+                    <input type="text" class="form-control1" id="category" name="category">
+                </div>
+                <div class="form-group">
+                    <label for="price">价格：</label>
+                    <input type="text" class="form-control1" id="price" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="num">数量：</label>
+                    <input type="text" class="form-control1" id="num" name="num">
+                </div>
+                <div class="form-group">
+                    <label for="status">状态(1为正常出售)：</label>
+                    <input type="text" class="form-control1" id="status" name="status">
+                </div>
+                <input type="submit" name="submit" class="btn btn-info" value="点击修改" onclick="success()" ></input>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
